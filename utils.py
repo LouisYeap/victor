@@ -3,8 +3,32 @@ from pathlib import Path
 import os
 import platform
 import shutil
+import subprocess
 from typing import List
 from .tool_types import PathLike, IMAGE_FILE_EXTENSIONS
+
+
+def install_all_requirements(root_dir="victor"):
+    if not os.path.exists(root_dir):
+        raise ValueError(f"root_dir {root_dir} not exists")
+
+    requirement_files = []
+
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        for file in filenames:
+            if file.endswith("requirements.txt"):
+                requirement_files.append(os.path.join(dirpath, file))
+
+    if not requirement_files:
+        raise ValueError(f"no requirements.txt files found in {root_dir}")
+
+    for req_file in requirement_files:
+        print("installing requirements from", req_file)
+        try:
+            subprocess.run(["pip", "install", "-r", req_file], check=True)
+            print(f"Successfully installed requirements from {req_file}")
+        except subprocess.CalledProcessError as e:
+            print(f"Error installing {req_file}: {e}")
 
 
 def is_windows() -> bool:

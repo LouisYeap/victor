@@ -8,6 +8,21 @@ from typing import List
 from .tool_types import PathLike, IMAGE_FILE_EXTENSIONS
 
 
+def handle_errors(errors: list, output_name: str) -> None:
+    """
+    将错误信息写入文件。
+
+    参数:
+        errors (list): 错误信息的列表。
+        script_name (str): 错误文件的名称（通常为脚本名加 `_error.txt`）。
+    """
+    with open(output_name, "w") as file:
+        file.write("\n".join(errors))
+        file.flush()
+        os.fsync(file.fileno())
+    print(f"所有错误信息已保存到: {output_name}")
+
+
 def install_all_requirements(root_dir="victor"):
     if not os.path.exists(root_dir):
         raise ValueError(f"root_dir {root_dir} not exists")

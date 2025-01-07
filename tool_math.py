@@ -1,8 +1,25 @@
-from typing import Tuple
+import random
+from typing import List, Tuple
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 from scipy.spatial.transform import Rotation
+
+
+def sample(ratio: int, lst: List[int]) -> List[int]:
+    """
+    从给定的列表中按指定比例抽样。样本大小由比例和列表长度的 1% 中的较大值决定。
+
+    参数:
+        ratio (int): 抽样比例。
+        lst (List[int]): 要抽样的列表。
+
+    返回:
+        List[int]: 抽样后的列表，包含从原始列表中选出的元素。
+    """
+    sample_size = max(int(ratio * len(lst)), len(lst) // 100)
+    sampled_list = random.sample(lst, sample_size)
+    return sampled_list
 
 
 def rt_to_homogeneous_matrix(rotation: ArrayLike, translation: ArrayLike) -> NDArray:

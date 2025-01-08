@@ -30,10 +30,11 @@ def install_all_requirements(root_dir="victor"):
     requirement_files = []
 
     for dirpath, dirnames, filenames in os.walk(root_dir):
-        for file in filenames:
-            if file.endswith("requirements.txt"):
-                requirement_files.append(os.path.join(dirpath, file))
-
+        requirement_files.extend(
+            os.path.join(dirpath, file)
+            for file in filenames
+            if file.endswith("requirements.txt")
+        )
     if not requirement_files:
         raise ValueError(f"no requirements.txt files found in {root_dir}")
 

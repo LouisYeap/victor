@@ -24,10 +24,9 @@ def execute_command(cmd: str, max_retries: int = 1) -> Optional[str]:
 
         if result.returncode == 0:
             return None
-        else:
-            print(f"Attempt {attempt + 1} failed for command: {cmd}")
-            print(f"Error: {result.stderr.strip()}")
-            if attempt < max_retries - 1:
-                print("Retrying...")
+        print(f"Attempt {attempt + 1} failed for command: {cmd}")
+        print(f"Error: {result.stderr.strip()}")
+        if attempt < max_retries - 1:
+            print("Retrying...")
 
     return cmd

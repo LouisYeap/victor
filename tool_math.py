@@ -18,8 +18,7 @@ def sample(ratio: int, lst: List[int]) -> List[int]:
         List[int]: 抽样后的列表，包含从原始列表中选出的元素。
     """
     sample_size = max(int(ratio * len(lst)), len(lst) // 100)
-    sampled_list = random.sample(lst, sample_size)
-    return sampled_list
+    return random.sample(lst, sample_size)
 
 
 def rt_to_homogeneous_matrix(rotation: ArrayLike, translation: ArrayLike) -> NDArray:

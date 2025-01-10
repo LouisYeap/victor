@@ -12,7 +12,7 @@ def thread_pool_executor(
     tasks: List[Union[Any, Tuple[Any, ...], List[Any]]],
     pool_size: int = 10,
     desc: str = "线程池处理中...",
-) -> List[Any]:
+) -> Dict[str, List[Any]]:
     """
     通用多线程任务处理方法
 
@@ -26,6 +26,7 @@ def thread_pool_executor(
     - 对多个任务并行执行时，例如批量下载文件、批量处理数据等。
     - 需要捕获任务中的异常并继续处理后续任务。
     """
+    results = []  # 记录成功结果
     error_msgs = []  # 记录错误信息
     with (
         tqdm.tqdm(total=len(tasks), desc=desc) as pbar,
@@ -42,13 +43,13 @@ def thread_pool_executor(
         for future in as_completed(future_tasks):
             try:
                 if result := future.result():
-                    error_msgs.append(result)
+                    results.append(result)
             except Exception as e:
                 tb = traceback.format_exc()
                 error_msg = f"任务出错: {e}\n追溯信息:\n{tb}"
                 error_msgs.append(error_msg)
             pbar.update(1)
-    return error_msgs
+    return {"results": results, "errors": error_msgs}
 
 
 def process_pool_executor(

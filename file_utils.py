@@ -79,3 +79,27 @@ def load_yaml_from(
     """
     with open(file_path, "r", encoding="utf-8") as file:
         return yaml.safe_load(file) or {}
+
+
+def write_list_to_txt(file_path, data_list, mode="w", line_separator="\n"):
+    """
+    将列表内容写入文本文件。
+
+    :param file_path: str, 文件路径，例如 'output.txt'
+    :param data_list: list, 需要写入的列表内容
+    :param mode: str, 写入模式，'w' 表示覆盖，'a' 表示追加
+    :param line_separator: str, 行分隔符，默认为 '\n'
+    """
+    try:
+        # 检查 data_list 是否是列表类型
+        if not isinstance(data_list, list):
+            raise TypeError("data_list 参数必须是一个列表")
+
+        # 打开文件写入内容
+        with open(file_path, mode, encoding="utf-8") as file:
+            for item in data_list:
+                # 将每个元素转换为字符串写入文件，并添加行分隔符
+                file.write(f"{str(item)}{line_separator}")
+        print(f"列表内容已成功写入到文件: {file_path}")
+    except Exception as e:
+        print(f"写入文件时出错: {e}")

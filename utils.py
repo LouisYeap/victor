@@ -6,6 +6,7 @@ import shutil
 import subprocess
 from typing import List
 from .tool_types import PathLike, IMAGE_FILE_EXTENSIONS
+import time
 
 
 def handle_errors(errors: list, output_name: str) -> None:
@@ -262,3 +263,15 @@ def get_current_datetime(format_str: str = "%Y-%m-%d-%H-%M-%S") -> str:
         str: 格式化后的日期时间
     """
     return datetime.datetime.now().strftime(format_str)
+
+
+def timing_decorator(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()  # 记录开始时间
+        result = func(*args, **kwargs)  # 执行被装饰的函数
+        end_time = time.time()  # 记录结束时间
+        execution_time = end_time - start_time
+        print(f"Function '{func.__name__}' executed in {execution_time:.4f} seconds")
+        return result  # 返回函数的结果
+
+    return wrapper

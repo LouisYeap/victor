@@ -2,7 +2,9 @@ import subprocess
 from typing import Optional
 
 
-def execute_command(cmd: str, max_retries: int = 1) -> Optional[str]:
+def execute_command(
+    cmd: str, max_retries: int = 1, switch: bool = False
+) -> Optional[str]:
     """
     执行命令行函数
 
@@ -23,6 +25,8 @@ def execute_command(cmd: str, max_retries: int = 1) -> Optional[str]:
         )
 
         if result.returncode == 0:
+            if switch:
+                print(result.stdout.strip())
             return None
         print(f"Attempt {attempt + 1} failed for command: {cmd}")
         print(f"Error: {result.stderr.strip()}")
@@ -30,3 +34,7 @@ def execute_command(cmd: str, max_retries: int = 1) -> Optional[str]:
             print("Retrying...")
 
     return cmd
+
+
+if __name__ == "__main__":
+    execute_command("ls -l", switch=True)

@@ -1,4 +1,5 @@
 import json
+import os
 import shutil
 from pathlib import Path
 from typing import List, Optional, Union, Dict
@@ -103,3 +104,29 @@ def write_list_to_txt(file_path, data_list, mode="w", line_separator="\n"):
         print(f"列表内容已成功写入到文件: {file_path}")
     except Exception as e:
         print(f"写入文件时出错: {e}")
+
+
+def append_to_file(
+    file_path: str,
+    content: str,
+    encoding: str = "utf-8",
+    add_newline: bool = True,
+    mode: str = "a",
+):
+    """
+    将指定内容追加到文本文件末尾，如果文件不存在则自动创建
+
+    :param file_path: 要写入的文件路径（字符串）
+    :param content: 要追加的内容（字符串）
+    :param encoding: 文件编码格式(默认为utf-8)
+    :param add_newline: 是否在内容后添加换行符(默认为True)
+    """
+    # 如果需要，自动在内容后面添加换行符
+    if add_newline:
+        content += "\n"
+
+    # 打开文件并写入内容
+    with open(file_path, mode, encoding=encoding) as file:
+        file.write(content)
+
+    print(f"内容已成功追加到 {file_path}")

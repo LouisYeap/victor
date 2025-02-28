@@ -34,7 +34,3 @@ def execute_command(
             print("Retrying...")
 
     return cmd
-
-
-if __name__ == "__main__":
-    execute_command("ls -l", switch=True)

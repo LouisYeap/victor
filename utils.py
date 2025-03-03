@@ -1,4 +1,3 @@
-import datetime
 from pathlib import Path
 import os
 import platform
@@ -175,3 +174,13 @@ def timing_decorator(func):
         return result  # 返回函数的结果
 
     return wrapper
+
+
+def fuzzy_get_value(data: dict, key_part: str):
+    """模糊匹配 key,返回匹配的 value 列表"""
+    return [v for k, v in data.items() if key_part in k]
+
+
+def fuzzy_get_keys(data: dict, key_part: str):
+    """模糊匹配 key,返回匹配的 key 列表"""
+    return [k for k in data if key_part in k]

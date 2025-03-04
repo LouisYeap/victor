@@ -10,7 +10,7 @@ from multiprocessing import Pool
 def thread_pool_executor(
     func: Callable[..., Any],
     tasks: List[Union[Any, Tuple[Any, ...], List[Any]]],
-    pool_size: int = 10,
+    pool_size: int = 60,
     desc: str = "线程池处理中...",
 ) -> Dict[str, List[Any]]:
     """

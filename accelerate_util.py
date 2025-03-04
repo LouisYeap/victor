@@ -28,28 +28,33 @@ def thread_pool_executor(
     """
     results = []  # 记录成功结果
     error_msgs = []  # 记录错误信息
-    with (
-        tqdm.tqdm(total=len(tasks), desc=desc) as pbar,
-        ThreadPoolExecutor(max_workers=pool_size) as executor,
-    ):
-        future_tasks: List[Future[Any]] = [
-            (
-                executor.submit(func, *task)
-                if isinstance(task, (tuple, list))
-                else executor.submit(func, task)
-            )
-            for task in tasks
-        ]
-        for future in as_completed(future_tasks):
-            try:
-                if result := future.result():
-                    results.append(result)
-            except Exception as e:
-                tb = traceback.format_exc()
-                error_msg = f"任务出错: {e}\n追溯信息:\n{tb}"
-                error_msgs.append(error_msg)
-            pbar.update(1)
-    return {"results": results, "errors": error_msgs}
+    # with (
+    #     tqdm.tqdm(total=len(tasks), desc=desc) as pbar,
+    #     ThreadPoolExecutor(max_workers=pool_size) as executor,
+    # ):
+    with tqdm.tqdm(total=len(tasks), desc=desc) as pbar:
+        with ThreadPoolExecutor(max_workers=pool_size) as executor:
+            future_tasks: List[Future[Any]] = [
+                (
+                    executor.submit(func, *task)
+                    if isinstance(task, (tuple, list))
+                    else executor.submit(func, task)
+                )
+                for task in tasks
+            ]
+            for future in as_completed(future_tasks):
+                try:
+                    result = future.result()
+                    # if result := future.result():
+                    if result:
+                        results.append(result)
+                        # results.append(result)
+                except Exception as e:
+                    tb = traceback.format_exc()
+                    error_msg = f"任务出错: {e}\n追溯信息:\n{tb}"
+                    error_msgs.append(error_msg)
+                pbar.update(1)
+        return {"results": results, "errors": error_msgs}
 
 
 def process_pool_executor(

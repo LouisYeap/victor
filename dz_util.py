@@ -2,9 +2,9 @@ import json
 import math
 import os
 from urllib.parse import urlparse
-import accelerate_util
-import command_utils
-import file_utils
+from . import accelerate_util
+from . import command_utils
+from . import file_utils
 from xstorage_core import ObsPlugin, BaseObjectStoragePlugin
 
 obs_plugin = ObsPlugin(

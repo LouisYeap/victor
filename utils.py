@@ -37,7 +37,7 @@ def is_windows() -> bool:
     判断当前操作系统是否为Windows。
 
     返回值:
-        bool: 如果当前操作系统是Windows，则返回True；否则返回False。
+        bool: 如果当前操作系统是Windows,则返回True;否则返回False。
     """
     return platform.system().startswith("Windows")
 

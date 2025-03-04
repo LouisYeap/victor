@@ -1,5 +1,4 @@
 import json
-import os
 import shutil
 from pathlib import Path
 from typing import List, Optional, Union, Dict
@@ -70,13 +69,13 @@ def load_yaml_from(
     file_path: PathLike,
 ):  # -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:
     """
-    这个函数用于读取指定路径的YAML文件，并将其内容解析为字典返回
+    这个函数用于读取指定路径的YAML文件,并将其内容解析为字典返回
 
     参数:
-    file_path (str 或 Path): YAML文件在磁盘上的路径，可以是字符串类型或者pathlib.Path类型
+    file_path (str 或 Path): YAML文件在磁盘上的路径,可以是字符串类型或者pathlib.Path类型
 
     返回:
-    dict: 解析后的YAML文件内容，以字典形式呈现，如果文件读取或解析出错，返回空字典
+    dict: 解析后的YAML文件内容,以字典形式呈现,如果文件读取或解析出错,返回空字典
     """
     with open(file_path, "r", encoding="utf-8") as file:
         return yaml.safe_load(file) or {}

@@ -77,6 +77,14 @@ def clean_or_create_folder(folder_path: PathLike):
     folder_path.mkdir(parents=True, exist_ok=True)
 
 
+def clean_file(output_file: str):
+    """
+    清理临时文件
+    """
+    if Path(output_file).exists():
+        Path(output_file).unlink()
+
+
 def search(directory: PathLike, pattern: str) -> List[Path]:
     """
     在指定目录中搜索匹配指定模式的文件。

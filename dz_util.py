@@ -1,18 +1,7 @@
-import json
+
 import math
 import os
 from urllib.parse import urlparse
-from . import accelerate_util
-from . import command_utils
-from . import file_utils
-from xstorage_core import ObsPlugin, BaseObjectStoragePlugin
-
-obs_plugin = ObsPlugin(
-    "478SULZPVA3PMRBQEUHH",
-    "exeTO3tK6lfz6pSjQhqO3tcPKBUmk84PImamRqTJ",
-    "https://obs.cn-east-3.myhuaweicloud.com",
-    "vendor-sensetime",
-)
 
 
 def get_obs_base_url(obs_url: str) -> str:
@@ -26,48 +15,6 @@ def get_obs_base_url(obs_url: str) -> str:
     return f"{parsed_url.scheme}://{parsed_url.netloc}/"
 
 
-def remove_clips(clips_obs_path: str, delete_clip_path: str):
-    """
-    删除指定的 OBS 路径下clip_name文件夹
-
-    该函数根据指定的路径 `delete_clip_path` 中列出的剪辑标识符，从 OBS 路径 `clips_obs_path` 中删除对应的指定文件夹。函数会使用多线程并行执行删除操作，以提高删除效率。
-
-    :param clips_obs_path: OBS 路径，包含待删除剪辑的存储路径。例如："obs://vendor-sensetime/sensetime/250123/"
-    :param delete_clip_path: 存储要删除的剪辑标识符的文件路径。例如："clips_to_delete.txt",该文件应每行一个删除的clip_name行
-    :return: 删除操作的执行结果，返回值为删除操作的执行结果
-    """
-
-    def delete_batch(paths):
-        cmd = f"/obsutil/obsutil rm {' '.join(paths)} -r -f"
-        # print("执行删除命令:", cmd)
-        command_utils.execute_command(cmd)
-
-    obs_origin_path = get_obs_base_url(clips_obs_path)
-
-    with open(delete_clip_path, "r") as file:
-        clip_set = {line.strip() for line in file}
-    list_dir = obs_plugin.list_dir(
-        clips_obs_path, BaseObjectStoragePlugin.VIEW_MODE_DIR, recursive=False
-    )
-
-    if not list_dir:
-        print("该路径无数据")
-        return
-    delete_paths = [
-        f"{obs_origin_path}{x}" for x in list_dir[1:] if x.split("/")[-2] in clip_set
-    ]
-    if not delete_paths:
-        print("未找到匹配的文件夹")
-        return
-    print(f"执行删除 {len(delete_paths)} 个文件夹")
-
-    result = accelerate_util.thread_pool_executor(
-        delete_batch, delete_paths, pool_size=30
-    )
-
-    file_utils.append_to_file(
-        "delete_result.txt", json.dumps(result, ensure_ascii=False)
-    )
 
 
 def split_txt_file(txt_path, split_count):

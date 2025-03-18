@@ -1,5 +1,7 @@
+from datetime import datetime, timedelta
 import math
 import os
+from typing import List, Tuple
 from urllib.parse import urlparse
 
 
@@ -47,3 +49,44 @@ def split_txt_file(txt_path, split_count):
             part.writelines(lines[start_idx:end_idx])
 
         print(f"生成文件: {part_file}, 包含 {end_idx - start_idx} 行")
+
+
+def split_datetime(
+    start_date: str, end_date: str, parallelism: int
+) -> List[List[Tuple[str, str]]]:
+    """
+    日期拆分
+    例子:"20250101" "20250201"
+    """
+    start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+    end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+
+    total_days = (end_dt - start_dt).days
+    if total_days < parallelism:
+        raise ValueError("parallelism 不能大于时间范围内的天数")
+
+    chunk_size = total_days // parallelism
+    remainder = total_days % parallelism
+
+    date_splits = []
+    current_date = start_dt
+
+    for i in range(parallelism):
+        sub_chunk_size = chunk_size + (1 if i < remainder else 0)
+        sub_list = []
+
+        for _ in range(sub_chunk_size):
+            next_date = current_date + timedelta(days=1)
+            if next_date > end_dt:
+                break
+            sub_list.append(
+                (current_date.strftime("%Y-%m-%d"), next_date.strftime("%Y-%m-%d"))
+            )
+            current_date = next_date
+
+        date_splits.append(sub_list)
+
+        if current_date >= end_dt:
+            break
+
+    return date_splits

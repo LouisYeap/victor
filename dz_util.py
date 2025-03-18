@@ -1,4 +1,3 @@
-
 import math
 import os
 from urllib.parse import urlparse
@@ -13,8 +12,6 @@ def get_obs_base_url(obs_url: str) -> str:
     """
     parsed_url = urlparse(obs_url)
     return f"{parsed_url.scheme}://{parsed_url.netloc}/"
-
-
 
 
 def split_txt_file(txt_path, split_count):

@@ -129,3 +129,14 @@ def append_to_file(
         file.write(content)
 
     # print(f"内容已成功追加到 {file_path}")
+
+
+def read_jsonl(file_path: str):
+    """
+    读取 JSONL(JSON Lines)文件,返回 JSON 对象列表
+
+    :param file_path: str, JSONL 文件路径
+    :return: list, 包含每行 JSON 数据的列表
+    """
+    with open(file_path, "r", encoding="utf-8") as f:
+        return [json.loads(line.strip()) for line in f]

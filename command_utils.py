@@ -39,7 +39,7 @@ def execute_command(
             return result.stdout.strip() if switch else None
 
         except subprocess.CalledProcessError as e:
-            print(f"❌命令执行失败 (尝试 {attempt + 1}/{max_retries})：{cmd}")
+            print(f"❌命令执行失败 (尝试 {attempt + 1}/{max_retries}):{cmd}")
             print(f"❌ 错误信息: {e.stderr.strip()}")
             if attempt < max_retries - 1:
                 print("🔄 重试中...")

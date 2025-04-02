@@ -77,6 +77,21 @@ def clean_or_create_folder(folder_path: PathLike):
     folder_path.mkdir(parents=True, exist_ok=True)
 
 
+def clean_folder(folder_path: PathLike):
+    """
+    清理已存在的文件夹或创建新文件夹
+
+    Args:
+        folder_path (PathLike): 要清理或创建的文件夹路径
+
+    Returns:
+        None
+    """
+    folder_path = Path(folder_path)
+    if folder_path.exists():
+        shutil.rmtree(folder_path)
+
+
 def clean_file(output_file: str):
     """
     清理临时文件

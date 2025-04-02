@@ -9,9 +9,17 @@ from .tool_types import PathLike
 
 
 def load_text_from(file_path: PathLike) -> str:
-    """从文件加载并返回文本数据"""
+    """一次性从文件加载并返回文本数据"""
     with open(file_path, "r", encoding="utf-8") as file:
         return file.read()
+
+
+def load_text_generator(file_path: PathLike):
+    """逐行读取文件，使用生成器返回每行数据,节省内存方式"""
+    # usage : lines = list(load_text_generator(file_path))
+    with open(file_path, "r", encoding="utf-8") as file:
+        for line in file:
+            yield line.rstrip("\n")  # 逐行返回，去除换行符
 
 
 def load_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:

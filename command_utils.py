@@ -1,4 +1,5 @@
 import subprocess
+import traceback
 from typing import Optional
 
 
@@ -25,22 +26,12 @@ def execute_command(
                 universal_newlines=True,
                 check=True,  # 让 `subprocess.run()` 自动抛出异常
             )
-
-            # if result.returncode == 0:
-            #     if switch:
-            #         print(result.stdout.strip()) if result.stdout else None
-            #     return None
-            # print(f"Attempt {attempt + 1} failed for command: {cmd}")
-            # print(f"Error: {result.stderr.strip()}")
-            # if attempt < max_retries - 1:
-            #     print("Retrying...")
-
-            # 如果 switch=True，返回 stdout，否则返回 None（表示成功）
             return result.stdout.strip() if switch else None
 
         except subprocess.CalledProcessError as e:
             print(f"❌命令执行失败 (尝试 {attempt + 1}/{max_retries}):{cmd}")
             print(f"❌ 错误信息: {e.stderr.strip()}")
+            traceback.print_exc()
             if attempt < max_retries - 1:
                 print("🔄 重试中...")
     return cmd

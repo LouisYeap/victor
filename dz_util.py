@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from itertools import islice
 import math
 import os
 from typing import List, Tuple
@@ -90,3 +91,18 @@ def split_datetime(
             break
 
     return date_splits
+
+
+def split_list(lst, n):
+    """
+    将列表 lst 拆分为 n 份，每份大小尽量均匀。
+
+    :param lst: 需要拆分的列表
+    :param n: 需要拆分的部分数
+    :return: 拆分后的列表
+    """
+    avg, extra = divmod(len(lst), n)
+    iter_lst = iter(lst)
+    return [list(islice(iter_lst, avg + (i < extra))) for i in range(n)]
+
+

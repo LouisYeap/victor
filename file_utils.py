@@ -148,3 +148,17 @@ def read_jsonl(file_path: str):
     """
     with open(file_path, "r", encoding="utf-8") as f:
         return [json.loads(line.strip()) for line in f]
+
+
+def json_list_to_jsonl(json_list, jsonl_name):
+    """
+    转换json_listd到jsonl文件
+    Converts a list of JSON objects to a JSONL (JSON Lines) file.
+
+    :param json_list: List of JSON objects (dicts).
+    :param jsonl_name: Name of the output JSONL file.
+    """
+    with open(jsonl_name, "w") as jsonl_file:
+        for json_obj in json_list:
+            json.dump(json_obj, jsonl_file)
+            jsonl_file.write("\n")

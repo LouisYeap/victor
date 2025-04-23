@@ -3,7 +3,6 @@ from itertools import islice
 import json
 import math
 import os
-import tempfile
 from typing import List, Tuple
 from urllib.parse import urlparse
 from command_utils import execute_command
@@ -22,7 +21,7 @@ def get_obs_base_url(obs_url: str) -> str:
 
 def split_txt_file(txt_path, split_count):
     """
-    根据txt文档的行数拆分文件
+    根据txt文档的行数拆分文件,用于多批chip_id划分处理
     :param txt_path: txt文档路径
     :param split_count: 拆分的文件数量
     """

@@ -1,9 +1,12 @@
 from datetime import datetime, timedelta
 from itertools import islice
+import json
 import math
 import os
+import tempfile
 from typing import List, Tuple
 from urllib.parse import urlparse
+from command_utils import execute_command
 
 
 def get_obs_base_url(obs_url: str) -> str:
@@ -106,3 +109,23 @@ def split_list(lst, n):
     return [list(islice(iter_lst, avg + (i < extra))) for i in range(n)]
 
 
+def jsonlist_to_obs(data_list: list, obs_path: str, custom_filename: str):
+    """
+    将 JSON 列表转换并上传到 OBS 路径,用于拆单帧上传obs路径
+    :param data_list: 要存储的 JSON 数据列表
+    :param obs_path: 要上传的 OBS 路径
+    :param custom_filename: 自定义 JSON 文件名（不含扩展名）
+    :return: 无
+    """
+    temp_file_path = f"/tmp/{custom_filename}.json"
+
+    with open(temp_file_path, "w", encoding="utf-8") as json_file:
+        json.dump(data_list, json_file, indent=4)
+
+    cmd = f"obsutil cp -f {temp_file_path} {obs_path}"
+    execute_command(cmd=cmd, max_retries=3, switch=True)
+
+    print(f"成功上传到 {obs_path}")
+
+    if os.path.exists(temp_file_path):
+        os.remove(temp_file_path)

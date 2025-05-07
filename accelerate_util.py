@@ -35,12 +35,12 @@ def thread_pool_executor(
     >>> print(result["results"])  # [1, 4, 9, 16, 25]
     """
 
-    results = []  # 存储成功结果
-    error_msgs = []  # 存储错误信息
+    results = []
+    error_msgs = []
 
     with tqdm.tqdm(total=len(tasks), desc=desc, leave=True) as pbar:
         with ThreadPoolExecutor(max_workers=pool_size) as executor:
-            # 提交任务
+
             future_tasks: List[Future[Any]] = [
                 executor.submit(
                     func, *task if isinstance(task, (tuple, list)) else (task,)
@@ -51,14 +51,14 @@ def thread_pool_executor(
             for future in as_completed(future_tasks):
                 try:
                     result = future.result()
-                    if result is not None:  # 确保不会丢失 0、False 等有效返回值
+                    if result is not None:
                         results.append(result)
                 except Exception as e:
                     error_msgs.append(
                         f"任务出错: {type(e).__name__}: {e}\n{traceback.format_exc()}"
                     )
 
-                pbar.update(1)  # 更新进度条
+                pbar.update(1)
 
     return {"results": results, "errors": error_msgs}
 
@@ -91,7 +91,7 @@ def process_pool_executor(
     """
 
     if pool_size is None:
-        pool_size = os.cpu_count() or 8  # 获取 CPU 核心数，默认 8
+        pool_size = os.cpu_count() or 8
 
     results = []
     error_msgs = []
@@ -109,12 +109,12 @@ def process_pool_executor(
         ) as pbar:
             for future in future_results:
                 try:
-                    results.append(future.get())  # 获取任务返回值
+                    results.append(future.get())
                 except Exception as e:
                     tb = traceback.format_exc()
                     error_msgs.append(
                         f"任务 {future} 出错: {type(e).__name__}: {e}\n{tb}"
                     )
-                pbar.update(1)  # 更新进度条
+                pbar.update(1)
 
     return {"results": results, "errors": error_msgs}

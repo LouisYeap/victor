@@ -23,7 +23,7 @@ def execute_command(
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
-                check=True,  # 让 `subprocess.run()` 自动抛出异常
+                check=True,
             )
             return result.stdout.strip() if switch else None
 

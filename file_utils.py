@@ -19,7 +19,7 @@ def load_text_generator(file_path: PathLike):
     # usage : lines = list(load_text_generator(file_path))
     with open(file_path, "r", encoding="utf-8") as file:
         for line in file:
-            yield line.rstrip("\n")  # 逐行返回，去除换行符
+            yield line.rstrip("\n")
 
 
 def load_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:

@@ -2,7 +2,6 @@ import subprocess
 import traceback
 from typing import Optional
 
-
 def execute_command(
     cmd: str, max_retries: int = 1, switch: bool = False
 ) -> Optional[str]:

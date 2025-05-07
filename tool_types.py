@@ -36,3 +36,4 @@ IMAGE_FILE_EXTENSIONS = [
 
 
 PathLike = Union[str, os.PathLike]
+

@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84c2a30e-e5f5-4d86-958d-1507fc6eeb4e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/victor.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/victor.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accelerate_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/accelerate_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/command_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool_types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LouisYeap&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LouisYeap/victor.git&quot;,
+    &quot;accountId&quot;: &quot;7ba85523-04c9-4cf7-9771-6d1687cd1c12&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -35,7 +43,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "settings.editor.splitter.proportion": "0.20813623"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -55,5 +64,16 @@
       <updated>1743584854340</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

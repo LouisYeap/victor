@@ -123,6 +123,7 @@ def append_to_file(
     """
     将指定内容追加到文本文件末尾，如果文件不存在则自动创建
 
+    :param mode: 书写模式
     :param file_path: 要写入的文件路径（字符串）
     :param content: 要追加的内容（字符串）
     :param encoding: 文件编码格式(默认为utf-8)

@@ -128,15 +128,11 @@ def append_to_file(
     :param encoding: 文件编码格式(默认为utf-8)
     :param add_newline: 是否在内容后添加换行符(默认为True)
     """
-    # 如果需要，自动在内容后面添加换行符
     if add_newline:
         content += "\n"
 
-    # 打开文件并写入内容
     with open(file_path, mode, encoding=encoding) as file:
         file.write(content)
-
-    # print(f"内容已成功追加到 {file_path}")
 
 
 def read_jsonl(file_path: str):

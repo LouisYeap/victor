@@ -16,7 +16,6 @@ def load_text_from(file_path: PathLike) -> str:
 
 def load_text_generator(file_path: PathLike):
     """逐行读取文件，使用生成器返回每行数据,节省内存方式"""
-    # usage : lines = list(load_text_generator(file_path))
     with open(file_path, "r", encoding="utf-8") as file:
         for line in file:
             yield line.rstrip("\n")
@@ -47,7 +46,6 @@ def load_list_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:
 def save_json_to(json_object: dict, folder_path: PathLike, file_name: str) -> None:
     """将 JSON 数据保存到文件"""
     folder_path = Path(folder_path)
-
     if not folder_path.exists():
         folder_path.mkdir(parents=True, exist_ok=True)
 
@@ -149,7 +147,7 @@ def read_jsonl(file_path: str):
 
 def json_list_to_jsonl(json_list, jsonl_name):
     """
-    转换json_listd到jsonl文件
+    转换json_list到jsonl文件
     Converts a list of JSON objects to a JSONL (JSON Lines) file.
 
     :param json_list: List of JSON objects (dicts).

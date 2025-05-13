@@ -1,0 +1,642 @@
+[
+    {
+        "label": "traceback",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "traceback",
+        "description": "traceback",
+        "detail": "traceback",
+        "documentation": {}
+    },
+    {
+        "label": "tqdm",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tqdm",
+        "description": "tqdm",
+        "detail": "tqdm",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "TypeVar",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "ThreadPoolExecutor",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "as_completed",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "Future",
+        "importPath": "concurrent.futures",
+        "description": "concurrent.futures",
+        "isExtraImport": true,
+        "detail": "concurrent.futures",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Pool",
+        "importPath": "multiprocessing",
+        "description": "multiprocessing",
+        "isExtraImport": true,
+        "detail": "multiprocessing",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "islice",
+        "importPath": "itertools",
+        "description": "itertools",
+        "isExtraImport": true,
+        "detail": "itertools",
+        "documentation": {}
+    },
+    {
+        "label": "math",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "math",
+        "description": "math",
+        "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "urlparse",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "shutil",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "shutil",
+        "description": "shutil",
+        "detail": "shutil",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "yaml",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "yaml",
+        "description": "yaml",
+        "detail": "yaml",
+        "documentation": {}
+    },
+    {
+        "label": "platform",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "platform",
+        "description": "platform",
+        "detail": "platform",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "thread_pool_executor",
+        "kind": 2,
+        "importPath": "accelerate_util",
+        "description": "accelerate_util",
+        "peekOfCode": "def thread_pool_executor(\n    func: Callable[..., Any],\n    tasks: List[Union[Any, Tuple[Any, ...], List[Any]]],\n    pool_size: int = 60,\n    desc: str = \"线程池处理中...\",\n) -> Dict[str, List[Any]]:\n    \"\"\"\n    通用多线程任务处理方法\n    :param func: 执行任务的函数，接受一个或多个参数\n    :param tasks: 任务列表，每个任务可以是单参数，也可以是一个元组或列表（表示多参数）",
+        "detail": "accelerate_util",
+        "documentation": {}
+    },
+    {
+        "label": "process_pool_executor",
+        "kind": 2,
+        "importPath": "accelerate_util",
+        "description": "accelerate_util",
+        "peekOfCode": "def process_pool_executor(\n    func: Callable[..., Any],\n    tasks: List[Union[Any, Tuple[Any, ...], List[Any]]],\n    pool_size: int = 8,  # 让 `pool_size=None` 时自动匹配 CPU 核心数\n    desc: str = \"进程池处理中...\",\n) -> Dict[str, List[Any]]:\n    \"\"\"\n    使用 `multiprocessing.Pool` 并行执行任务，并获取返回值，带 `tqdm` 进度条。\n    :param func: 需要并行执行的函数\n    :param tasks: 任务列表，每个任务可以是单参数，也可以是一个元组/列表（多参数）",
+        "detail": "accelerate_util",
+        "documentation": {}
+    },
+    {
+        "label": "execute_command",
+        "kind": 2,
+        "importPath": "command_utils",
+        "description": "command_utils",
+        "peekOfCode": "def execute_command(\n    cmd: str, max_retries: int = 1, switch: bool = False\n) -> Optional[str]:\n    \"\"\"\n    执行命令行函数\n    参数:\n        cmd (str): 要执行的 shell 命令。\n        max_retries (int): 如果命令失败，最大重试次数（默认值: 1)。\n    返回:\n        Optional[str]: 如果命令成功返回 None;如果重试次数耗尽仍失败,返回失败的命令字符串。",
+        "detail": "command_utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_obs_base_url",
+        "kind": 2,
+        "importPath": "dz_util",
+        "description": "dz_util",
+        "peekOfCode": "def get_obs_base_url(obs_url: str) -> str:\n    \"\"\"\n    获取 OBS URL 的基础路径，即 `obs://bucket-name/`\n    :param obs_url: 完整的 OBS URL,例如 \"obs://vendor-sensetime/sensetime/250123/\"\n    :return: 解析后的基础 OBS 地址，例如 \"obs://vendor-sensetime/\"\n    \"\"\"\n    parsed_url = urlparse(obs_url)\n    return f\"{parsed_url.scheme}://{parsed_url.netloc}/\"\ndef split_txt_file(txt_path, split_count):\n    \"\"\"",
+        "detail": "dz_util",
+        "documentation": {}
+    },
+    {
+        "label": "split_txt_file",
+        "kind": 2,
+        "importPath": "dz_util",
+        "description": "dz_util",
+        "peekOfCode": "def split_txt_file(txt_path, split_count):\n    \"\"\"\n    根据txt文档的行数拆分文件,用于多批chip_id划分处理\n    :param txt_path: txt文档路径\n    :param split_count: 拆分的文件数量\n    \"\"\"\n    # 读取原始 TXT 文件的所有内容\n    with open(txt_path, \"r\", encoding=\"utf-8\") as file:\n        lines = file.readlines()\n    total_lines = len(lines)",
+        "detail": "dz_util",
+        "documentation": {}
+    },
+    {
+        "label": "split_datetime",
+        "kind": 2,
+        "importPath": "dz_util",
+        "description": "dz_util",
+        "peekOfCode": "def split_datetime(\n    start_date: str, end_date: str, parallelism: int\n) -> List[List[Tuple[str, str]]]:\n    \"\"\"\n    日期拆分\n    例子:\"20250101\" \"20250201\"\n    \"\"\"\n    start_dt = datetime.strptime(start_date, \"%Y-%m-%d\")\n    end_dt = datetime.strptime(end_date, \"%Y-%m-%d\")\n    total_days = (end_dt - start_dt).days",
+        "detail": "dz_util",
+        "documentation": {}
+    },
+    {
+        "label": "split_list",
+        "kind": 2,
+        "importPath": "dz_util",
+        "description": "dz_util",
+        "peekOfCode": "def split_list(lst, n):\n    \"\"\"\n    将列表 lst 拆分为 n 份，每份大小尽量均匀。\n    :param lst: 需要拆分的列表\n    :param n: 需要拆分的部分数\n    :return: 拆分后的列表\n    \"\"\"\n    avg, extra = divmod(len(lst), n)\n    iter_lst = iter(lst)\n    return [list(islice(iter_lst, avg + (i < extra))) for i in range(n)]",
+        "detail": "dz_util",
+        "documentation": {}
+    },
+    {
+        "label": "load_text_from",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def load_text_from(file_path: PathLike) -> str:\n    \"\"\"一次性从文件加载并返回文本数据\"\"\"\n    with open(file_path, \"r\", encoding=\"utf-8\") as file:\n        return file.read()\ndef load_text_generator(file_path: PathLike):\n    \"\"\"逐行读取文件，使用生成器返回每行数据,节省内存方式\"\"\"\n    with open(file_path, \"r\", encoding=\"utf-8\") as file:\n        for line in file:\n            yield line.rstrip(\"\\n\")\ndef load_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_text_generator",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def load_text_generator(file_path: PathLike):\n    \"\"\"逐行读取文件，使用生成器返回每行数据,节省内存方式\"\"\"\n    with open(file_path, \"r\", encoding=\"utf-8\") as file:\n        for line in file:\n            yield line.rstrip(\"\\n\")\ndef load_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:\n    \"\"\"从文件加载并返回 JSON 数据\"\"\"\n    with open(file_path, \"r\", encoding=\"utf-8\") as file:\n        return json.load(file)\ndef load_object_json_from(file_path: PathLike) -> Dict:",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_json_from",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def load_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:\n    \"\"\"从文件加载并返回 JSON 数据\"\"\"\n    with open(file_path, \"r\", encoding=\"utf-8\") as file:\n        return json.load(file)\ndef load_object_json_from(file_path: PathLike) -> Dict:\n    \"\"\"从文件加载并返回JSON 字典数据\"\"\"\n    load_data = load_json_from(file_path)\n    if isinstance(load_data, dict):\n        return load_data\n    raise ValueError(\"target json is not a object.\")",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_object_json_from",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def load_object_json_from(file_path: PathLike) -> Dict:\n    \"\"\"从文件加载并返回JSON 字典数据\"\"\"\n    load_data = load_json_from(file_path)\n    if isinstance(load_data, dict):\n        return load_data\n    raise ValueError(\"target json is not a object.\")\ndef load_list_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:\n    \"\"\"从文件加载并返回JSON 列表数据\"\"\"\n    load_data = load_json_from(file_path)\n    if isinstance(load_data, (list, dict)):",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_list_json_from",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def load_list_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:\n    \"\"\"从文件加载并返回JSON 列表数据\"\"\"\n    load_data = load_json_from(file_path)\n    if isinstance(load_data, (list, dict)):\n        return load_data\n    raise ValueError(\"target json is not a object.\")\ndef save_json_to(json_object: dict, folder_path: PathLike, file_name: str) -> None:\n    \"\"\"将 JSON 数据保存到文件\"\"\"\n    folder_path = Path(folder_path)\n    if not folder_path.exists():",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "save_json_to",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def save_json_to(json_object: dict, folder_path: PathLike, file_name: str) -> None:\n    \"\"\"将 JSON 数据保存到文件\"\"\"\n    folder_path = Path(folder_path)\n    if not folder_path.exists():\n        folder_path.mkdir(parents=True, exist_ok=True)\n    file_path = folder_path / file_name\n    with open(file_path, \"w\", encoding=\"utf-8\") as file:\n        json.dump(json_object, file, ensure_ascii=False, indent=4)\ndef copy_file_to_folder(\n    file_path: PathLike, folder_path: PathLike, target_name: Optional[str] = None",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "copy_file_to_folder",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def copy_file_to_folder(\n    file_path: PathLike, folder_path: PathLike, target_name: Optional[str] = None\n) -> None:\n    \"\"\"将文件复制到目标文件夹。如果文件夹不存在，创建该文件夹\"\"\"\n    file_path = Path(file_path)\n    folder_path = Path(folder_path)\n    if file_path.is_dir():\n        raise ValueError(f\"{file_path} is not a file\")\n    folder_path.mkdir(parents=True, exist_ok=True)\n    if target_name is not None:",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "load_yaml_from",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def load_yaml_from(\n    file_path: PathLike,\n):  # -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:# -> Any | dict[Any, Any]:\n    \"\"\"\n    这个函数用于读取指定路径的YAML文件,并将其内容解析为字典返回\n    参数:\n    file_path (str 或 Path): YAML文件在磁盘上的路径,可以是字符串类型或者pathlib.Path类型\n    返回:\n    dict: 解析后的YAML文件内容,以字典形式呈现,如果文件读取或解析出错,返回空字典\n    \"\"\"",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "write_list_to_txt",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def write_list_to_txt(file_path, data_list, mode=\"w\", line_separator=\"\\n\"):\n    \"\"\"\n    将列表内容写入文本文件。\n    :param file_path: str, 文件路径，例如 'output.txt'\n    :param data_list: list, 需要写入的列表内容\n    :param mode: str, 写入模式，'w' 表示覆盖，'a' 表示追加\n    :param line_separator: str, 行分隔符，默认为 '\\n'\n    \"\"\"\n    try:\n        # 检查 data_list 是否是列表类型",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "append_to_file",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def append_to_file(\n    file_path: str,\n    content: str,\n    encoding: str = \"utf-8\",\n    add_newline: bool = True,\n    mode: str = \"a\",\n):\n    \"\"\"\n    将指定内容追加到文本文件末尾，如果文件不存在则自动创建\n    :param mode: 书写模式",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "read_jsonl",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def read_jsonl(file_path: str):\n    \"\"\"\n    读取 JSONL(JSON Lines)文件,返回 JSON 对象列表\n    :param file_path: str, JSONL 文件路径\n    :return: list, 包含每行 JSON 数据的列表\n    \"\"\"\n    with open(file_path, \"r\", encoding=\"utf-8\") as f:\n        return [json.loads(line.strip()) for line in f]\ndef json_list_to_jsonl(json_list, jsonl_name):\n    \"\"\"",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "json_list_to_jsonl",
+        "kind": 2,
+        "importPath": "file_utils",
+        "description": "file_utils",
+        "peekOfCode": "def json_list_to_jsonl(json_list, jsonl_name):\n    \"\"\"\n    转换json_list到jsonl文件\n    Converts a list of JSON objects to a JSONL (JSON Lines) file.\n    :param json_list: List of JSON objects (dicts).\n    :param jsonl_name: Name of the output JSONL file.\n    \"\"\"\n    with open(jsonl_name, \"w\") as jsonl_file:\n        for json_obj in json_list:\n            json.dump(json_obj, jsonl_file)",
+        "detail": "file_utils",
+        "documentation": {}
+    },
+    {
+        "label": "T",
+        "kind": 5,
+        "importPath": "tool_types",
+        "description": "tool_types",
+        "peekOfCode": "T = TypeVar(\"T\")\nR = TypeVar(\"R\")\nIMAGE_FILE_EXTENSIONS = [\n    \"apng\",\n    \"png\",\n    \"avif\",\n    \"gif\",\n    \"jpg\",\n    \"jpeg\",\n    \"jfif\",",
+        "detail": "tool_types",
+        "documentation": {}
+    },
+    {
+        "label": "R",
+        "kind": 5,
+        "importPath": "tool_types",
+        "description": "tool_types",
+        "peekOfCode": "R = TypeVar(\"R\")\nIMAGE_FILE_EXTENSIONS = [\n    \"apng\",\n    \"png\",\n    \"avif\",\n    \"gif\",\n    \"jpg\",\n    \"jpeg\",\n    \"jfif\",\n    \"jp2\",",
+        "detail": "tool_types",
+        "documentation": {}
+    },
+    {
+        "label": "IMAGE_FILE_EXTENSIONS",
+        "kind": 5,
+        "importPath": "tool_types",
+        "description": "tool_types",
+        "peekOfCode": "IMAGE_FILE_EXTENSIONS = [\n    \"apng\",\n    \"png\",\n    \"avif\",\n    \"gif\",\n    \"jpg\",\n    \"jpeg\",\n    \"jfif\",\n    \"jp2\",\n    \"j2k\",",
+        "detail": "tool_types",
+        "documentation": {}
+    },
+    {
+        "label": "PathLike",
+        "kind": 5,
+        "importPath": "tool_types",
+        "description": "tool_types",
+        "peekOfCode": "PathLike = Union[str, os.PathLike]",
+        "detail": "tool_types",
+        "documentation": {}
+    },
+    {
+        "label": "install_all_requirements",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def install_all_requirements(root_dir=\"victor\"):\n    if not os.path.exists(root_dir):\n        raise ValueError(f\"root_dir {root_dir} not exists\")\n    requirement_files = []\n    for dirpath, dirnames, filenames in os.walk(root_dir):\n        requirement_files.extend(\n            os.path.join(dirpath, file)\n            for file in filenames\n            if file.endswith(\"requirements.txt\")\n        )",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "is_windows",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def is_windows() -> bool:\n    \"\"\"\n    判断当前操作系统是否为Windows。\n    返回值:\n        bool: 如果当前操作系统是Windows,则返回True;否则返回False。\n    \"\"\"\n    return platform.system().startswith(\"Windows\")\ndef get_absolute_path(relative_path: PathLike) -> Path:\n    \"\"\"\n    获取文件或目录的绝对路径。在Windows系统上会自动处理长路径问题。",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_absolute_path",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def get_absolute_path(relative_path: PathLike) -> Path:\n    \"\"\"\n    获取文件或目录的绝对路径。在Windows系统上会自动处理长路径问题。\n    Args:\n        relative_path (PathLike): 相对路径或绝对路径字符串\n    Returns:\n        Path: 转换后的绝对路径对象\n    \"\"\"\n    absolute_path = os.path.abspath(relative_path)\n    if is_windows():",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "clean_or_create_folder",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def clean_or_create_folder(folder_path: PathLike):\n    \"\"\"\n    清理已存在的文件夹或创建新文件夹。如果文件夹存在，会先删除再创建。\n    Args:\n        folder_path (PathLike): 要清理或创建的文件夹路径\n    Returns:\n        None\n    \"\"\"\n    folder_path = Path(folder_path)\n    if folder_path.exists():",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "clean_folder",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def clean_folder(folder_path: PathLike):\n    \"\"\"\n    清理已存在的文件夹或创建新文件夹\n    Args:\n        folder_path (PathLike): 要清理或创建的文件夹路径\n    Returns:\n        None\n    \"\"\"\n    folder_path = Path(folder_path)\n    if folder_path.exists():",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "clean_file",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def clean_file(output_file: str):\n    \"\"\"\n    清理临时文件\n    \"\"\"\n    if Path(output_file).exists():\n        Path(output_file).unlink()\ndef search(directory: PathLike, pattern: str) -> List[Path]:\n    \"\"\"\n    在指定目录中搜索匹配指定模式的文件。\n    Args:",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "search",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def search(directory: PathLike, pattern: str) -> List[Path]:\n    \"\"\"\n    在指定目录中搜索匹配指定模式的文件。\n    Args:\n        directory (PathLike): 要搜索的目录路径\n        pattern (str): 搜索模式，支持通配符，如 \"*.txt\"\n    Returns:\n        List[Path]: 匹配文件的路径列表\n    \"\"\"\n    return list(Path(directory).glob(pattern))",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "rsearch",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def rsearch(directory: PathLike, pattern: str) -> List[Path]:\n    \"\"\"\n    递归地在指定目录及其子目录中搜索匹配指定模式的文件。\n    Args:\n        directory (PathLike): 要搜索的根目录路径\n        pattern (str): 搜索模式，支持通配符，如 \"*.txt\"\n    Returns:\n        List[Path]: 匹配文件的路径列表\n    \"\"\"\n    return list(Path(directory).rglob(pattern))",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "list_folders_of_path",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def list_folders_of_path(folder_path: PathLike):\n    \"\"\"\n    获取指定路径下的所有文件夹。\n    Args:\n        folder_path (PathLike): 文件夹路径\n    Returns:\n        List[Path]: 文件夹路径列表\n    \"\"\"\n    return [f for f in Path(folder_path).iterdir() if f.is_dir()]\ndef list_files_of_path(folder_path: PathLike):",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "list_files_of_path",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def list_files_of_path(folder_path: PathLike):\n    \"\"\"\n    获取指定路径下的所有文件。\n    Args:\n        folder_path (PathLike): 文件夹路径\n    Returns:\n        List[Path]: 文件路径列表\n    \"\"\"\n    return [f for f in Path(folder_path).iterdir() if f.is_file()]\ndef rlist_jsons_of_path(folder_path: PathLike) -> List[Path]:",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "rlist_jsons_of_path",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def rlist_jsons_of_path(folder_path: PathLike) -> List[Path]:\n    \"\"\"\n    递归获取指定路径下的所有 JSON 文件（通过后缀名判断）。\n    Args:\n        folder_path (PathLike): 文件夹路径\n    Returns:\n        List[Path]: JSON 文件路径列表\n    \"\"\"\n    return list(Path(folder_path).rglob(\"*.json\"))\ndef break_list(lst: List, n: int) -> List[List]:",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "break_list",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def break_list(lst: List, n: int) -> List[List]:\n    \"\"\"\n    将一个列表分割成多个小列表，每个小列表包含最多 n 个元素。\n    Args:\n        lst (List): 需要分割的原始列表\n        n (int): 每个子列表的最大元素数量\n    Returns:\n        List[List]: 一个嵌套列表，其中每个子列表包含 n 个或更少的元素\n    \"\"\"\n    return [lst[i : i + n] for i in range(0, len(lst), n)]",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "timing_decorator",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def timing_decorator(func):\n    \"\"\"\n    测试时间的装饰器\n    \"\"\"\n    def wrapper(*args, **kwargs):\n        start_time = time.time()  # 记录开始时间\n        result = func(*args, **kwargs)  # 执行被装饰的函数\n        end_time = time.time()  # 记录结束时间\n        execution_time = end_time - start_time\n        print(f\"Function '{func.__name__}' executed in {execution_time:.4f} seconds\")",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "fuzzy_get_value",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def fuzzy_get_value(data: dict, key_part: str):\n    \"\"\"模糊匹配 key,返回匹配的 value 列表\"\"\"\n    return [v for k, v in data.items() if key_part in k]\ndef fuzzy_get_keys(data: dict, key_part: str):\n    \"\"\"模糊匹配 key,返回匹配的 key 列表\"\"\"\n    return [k for k in data if key_part in k]",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "fuzzy_get_keys",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def fuzzy_get_keys(data: dict, key_part: str):\n    \"\"\"模糊匹配 key,返回匹配的 key 列表\"\"\"\n    return [k for k in data if key_part in k]",
+        "detail": "utils",
+        "documentation": {}
+    }
+]

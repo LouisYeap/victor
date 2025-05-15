@@ -13,6 +13,11 @@ def load_text_from(file_path: PathLike) -> str:
     with open(file_path, "r", encoding="utf-8") as file:
         return file.read()
 
+def read_txt_to_list(txt_path):
+    """
+    读取txt文件，每一行作为list的一个元素返回
+    """
+    return [line.strip() for line in load_text_generator(txt_path)]
 
 def load_text_generator(file_path: PathLike):
     """逐行读取文件，使用生成器返回每行数据,节省内存方式"""

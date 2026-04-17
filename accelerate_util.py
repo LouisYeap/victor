@@ -1,4 +1,4 @@
-"""并行任务处理工具（线程池 / 进程池）"""
+"""Parallel task execution utilities (thread pool / process pool)."""
 
 import os
 import time
@@ -17,20 +17,20 @@ def thread_pool_executor(
     func: Callable[..., Any],
     tasks: List[Union[Any, Tuple[Any, ...]]],
     pool_size: int = 60,
-    desc: str = "线程池处理中...",
+    desc: str = "Processing...",
 ) -> Dict[str, List[Any]]:
-    """通用多线程任务处理。
+    """General-purpose multi-threaded task executor with tqdm progress bar.
 
     Args:
-        func: 执行任务的函数，接受一个或多个参数。
-        tasks: 任务列表，每个任务可以是单参数或元组/列表（表示多参数）。
-        pool_size: 线程池大小，默认 60。
-        desc: 进度条描述。
+        func: Function to execute. Accepts one or more arguments per task.
+        tasks: List of tasks; each can be a single value or a tuple/list (multi-arg).
+        pool_size: Thread pool size, defaults to 60.
+        desc: Progress bar description text.
 
     Returns:
-        包含结果和错误信息的字典 ``{'results': [], 'errors': []}``。
+        A dict ``{'results': [], 'errors': []}``.
 
-    示例:
+    Example:
         >>> def square(x): return x * x
         >>> thread_pool_executor(square, [1, 2, 3, 4, 5])['results']
         [1, 4, 9, 16, 25]
@@ -50,7 +50,7 @@ def thread_pool_executor(
                         results.append(result)
                 except Exception as e:
                     error_msgs.append(
-                        f"任务出错: {type(e).__name__}: {e}\n{traceback.format_exc()}"
+                        f"Task error: {type(e).__name__}: {e}\n{traceback.format_exc()}"
                     )
                 pbar.update(1)
 
@@ -61,20 +61,20 @@ def process_pool_executor(
     func: Callable[..., Any],
     tasks: List[Union[Any, Tuple[Any, ...]]],
     pool_size: int = None,
-    desc: str = "进程池处理中...",
+    desc: str = "Processing...",
 ) -> Dict[str, List[Any]]:
-    """使用 ``multiprocessing.Pool`` 并行执行任务，带 tqdm 进度条。
+    """Parallel task execution using ``multiprocessing.Pool`` with tqdm progress bar.
 
     Args:
-        func: 需要并行执行的函数。
-        tasks: 任务列表，每个任务可以是单参数或元组/列表（多参数）。
-        pool_size: 进程池大小，默认为 CPU 核心数。
-        desc: 进度条描述。
+        func: Function to execute in parallel.
+        tasks: List of tasks; each can be a single value or a tuple/list (multi-arg).
+        pool_size: Process pool size, defaults to CPU core count.
+        desc: Progress bar description text.
 
     Returns:
-        包含结果和错误信息的字典 ``{'results': [], 'errors': []}``。
+        A dict ``{'results': [], 'errors': []}``.
 
-    示例:
+    Example:
         >>> def square(x): return x * x
         >>> process_pool_executor(square, [1, 2, 3, 4, 5])['results']
         [1, 4, 9, 16, 25]
@@ -97,15 +97,15 @@ def process_pool_executor(
                     results.append(ar.get())
                 except Exception as e:
                     error_msgs.append(
-                        f"任务出错: {type(e).__name__}: {e}\n{traceback.format_exc()}"
+                        f"Task error: {type(e).__name__}: {e}\n{traceback.format_exc()}"
                     )
                 pbar.update(1)
 
     return {"results": results, "errors": error_msgs}
 
 
-# ─────────────── 以下为路径 / 文件夹操作工具 ───────────────
-#（保留在本文件以维持向后兼容，建议逐步迁移到 file_utils）
+# ─────────────── Path / Folder Utilities ───────────────
+# (Kept here for backward compatibility; migration to file_utils planned.)
 
 import platform
 import shutil
@@ -114,10 +114,10 @@ from .tool_types import PathLike
 
 
 def install_all_requirements(root_dir: PathLike = "."):
-    """递归安装目录下所有 requirements.txt 文件。
+    """Recursively install all ``requirements.txt`` files under a directory.
 
     Args:
-        root_dir: 搜索根目录。
+        root_dir: Root directory to search.
     """
     req_files = []
     for dirpath, _, filenames in os.walk(root_dir):
@@ -130,16 +130,16 @@ def install_all_requirements(root_dir: PathLike = "."):
     for req_file in req_files:
         print(f"Installing from {req_file} ...")
         subprocess.run(["pip", "install", "-r", req_file], check=True)
-        print(f"✓ {req_file}")
+        print(f"  OK  {req_file}")
 
 
 def is_windows() -> bool:
-    """判断当前系统是否为 Windows。"""
+    """Return ``True`` if the current OS is Windows."""
     return platform.system().startswith("Windows")
 
 
 def get_absolute_path(relative_path: PathLike) -> Path:
-    """将相对路径转换为绝对路径，Windows 下自动处理长路径。"""
+    """Convert a relative path to absolute; handles Windows long-path prefix."""
     absolute_path = os.path.abspath(relative_path)
     if is_windows():
         absolute_path = f"\\\\?\\{absolute_path}"
@@ -147,7 +147,7 @@ def get_absolute_path(relative_path: PathLike) -> Path:
 
 
 def clean_or_create_folder(folder_path: PathLike) -> None:
-    """如果文件夹存在则删除重建，否则直接创建。"""
+    """Delete the folder if it exists, then create it fresh."""
     folder_path = Path(folder_path)
     if folder_path.exists():
         shutil.rmtree(folder_path)
@@ -155,51 +155,51 @@ def clean_or_create_folder(folder_path: PathLike) -> None:
 
 
 def clean_folder(folder_path: PathLike) -> None:
-    """删除文件夹（如果存在）。"""
+    """Delete a folder and all its contents (if it exists)."""
     folder_path = Path(folder_path)
     if folder_path.exists():
         shutil.rmtree(folder_path)
 
 
 def clean_file(output_file: PathLike) -> None:
-    """删除文件（如果存在）。"""
+    """Delete a file (if it exists)."""
     p = Path(output_file)
     if p.exists():
         p.unlink()
 
 
 def search(directory: PathLike, pattern: str) -> List[Path]:
-    """在目录中搜索匹配 pattern 的文件（非递归）。"""
+    """Search for files matching ``pattern`` in ``directory`` (non-recursive)."""
     return list(Path(directory).glob(pattern))
 
 
 def rsearch(directory: PathLike, pattern: str) -> List[Path]:
-    """在目录及其子目录中递归搜索匹配 pattern 的文件。"""
+    """Recursively search for files matching ``pattern`` under ``directory``."""
     return list(Path(directory).rglob(pattern))
 
 
 def list_folders_of_path(folder_path: PathLike) -> List[Path]:
-    """返回指定路径下的所有子文件夹。"""
+    """Return all subfolders under ``folder_path``."""
     return [f for f in Path(folder_path).iterdir() if f.is_dir()]
 
 
 def list_files_of_path(folder_path: PathLike) -> List[Path]:
-    """返回指定路径下的所有文件。"""
+    """Return all files under ``folder_path``."""
     return [f for f in Path(folder_path).iterdir() if f.is_file()]
 
 
 def rlist_jsons_of_path(folder_path: PathLike) -> List[Path]:
-    """递归获取指定路径下所有 JSON 文件。"""
+    """Recursively find all JSON files under ``folder_path``."""
     return list(Path(folder_path).rglob("*.json"))
 
 
 def break_list(lst: List[T], n: int) -> List[List[T]]:
-    """将列表均分成每份最多 n 个元素。"""
+    """Split ``lst`` into chunks of at most ``n`` elements each."""
     return [lst[i : i + n] for i in range(0, len(lst), n)]
 
 
 def timing_decorator(func: Callable[..., T]) -> Callable[..., T]:
-    """打印函数执行耗时的装饰器。"""
+    """Decorator that prints ``func``'s execution time to stdout."""
     def wrapper(*args, **kwargs) -> T:
         start = time.time()
         result = func(*args, **kwargs)
@@ -209,10 +209,10 @@ def timing_decorator(func: Callable[..., T]) -> Callable[..., T]:
 
 
 def fuzzy_get_value(data: dict, key_part: str) -> List[Any]:
-    """模糊匹配 key，返回对应的 value 列表。"""
+    """Return all values whose keys contain ``key_part``."""
     return [v for k, v in data.items() if key_part in k]
 
 
 def fuzzy_get_keys(data: dict, key_part: str) -> List[str]:
-    """模糊匹配 key，返回匹配的 key 列表。"""
+    """Return all keys that contain ``key_part``."""
     return [k for k in data if key_part in k]

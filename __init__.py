@@ -1,6 +1,7 @@
-"""Victor — Python 通用工具库
+"""Victor — General-purpose Python utility library.
 
-提供多线程/多进程并行、文件操作、日志处理等实用工具。
+Provides multi-threaded/multi-process execution, file I/O, and common
+development helpers for everyday coding tasks.
 """
 
 from .accelerate_util import (

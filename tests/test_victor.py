@@ -1,4 +1,4 @@
-"""Victor 工具库测试"""
+"""Victor library unit tests."""
 
 import json
 import os
@@ -7,10 +7,8 @@ from pathlib import Path
 
 import pytest
 
-# ─────────────── 辅助 ───────────────
 
-TMP = tempfile.mkdtemp()
-
+# ─────────────── file_utils ───────────────
 
 def test_load_and_save_json(tmp_path):
     from victor import save_json_to, load_json_from
@@ -26,7 +24,7 @@ def test_save_json_indent(tmp_path):
 
     save_json_to({"a": 1}, tmp_path, "indent.json", indent=2)
     content = (tmp_path / "indent.json").read_text()
-    # 缩进为2空格
+    # indent should be 2 spaces
     assert "  " in content and '"a"' in content
 
 
@@ -35,7 +33,7 @@ def test_save_json_ensure_ascii(tmp_path):
 
     save_json_to({"name": "你好"}, tmp_path, "unicode.json", ensure_ascii=True)
     raw = (tmp_path / "unicode.json").read_text()
-    assert "你好" not in raw  # 应被转义
+    assert "你好" not in raw  # should be escaped
     loaded = load_json_from(tmp_path / "unicode.json")
     assert loaded["name"] == "你好"
 
@@ -104,7 +102,7 @@ def test_append_to_file(tmp_path):
     p = tmp_path / "append.txt"
     append_to_file(p, "line1")
     append_to_file(p, "line2", add_newline=False)
-    # add_newline=False 时最后无换行符
+    # add_newline=False means no trailing newline
     assert load_text_from(p) == "line1\nline2"
 
 
@@ -206,7 +204,7 @@ def test_clean_or_create_folder(tmp_path):
     clean_or_create_folder(sub)
     assert sub.exists() and sub.is_dir()
 
-    # 再次调用：已有目录应被删除重建
+    # Calling again should delete and recreate
     (sub / "temp.txt").write_text("hello", encoding="utf-8")
     clean_or_create_folder(sub)
     assert sub.exists()
@@ -314,7 +312,7 @@ def test_split_txt_file(tmp_path):
 
     files = sorted(tmp_path.glob("source_*.txt"))
     assert len(files) == 3
-    # 总行数应为 10（9个数字 + 空行尾）
+    # Total lines should be 10 (9 numbers + trailing empty line)
     total_lines = sum(len(p.read_text(encoding="utf-8").splitlines()) for p in files)
     assert total_lines == 10
 
@@ -338,7 +336,6 @@ def test_execute_command_success():
 def test_execute_command_failure():
     from victor import execute_command
 
-    # 不存在的命令应该返回命令字符串（失败标志）
+    # On failure, returns the command string as error indicator
     ret = execute_command("exit 1", switch=False)
-    # 命令失败时返回命令字符串作为失败标志
     assert ret == "exit 1"

@@ -1,19 +1,26 @@
+"""Shell command execution utilities."""
+
 import subprocess
 import traceback
 from typing import Optional
 
+
 def execute_command(
     cmd: str, max_retries: int = 1, switch: bool = False
 ) -> Optional[str]:
-    """
-    执行命令行函数
+    """Execute a shell command with optional retry.
 
-    参数:
-        cmd (str): 要执行的 shell 命令。
-        max_retries (int): 如果命令失败，最大重试次数（默认值: 1)。
+    Args:
+        cmd: The shell command to execute.
+        max_retries: Maximum retry attempts on failure (default 1).
+        switch: If ``True``, return stdout as string on success;
+                if ``False``, return ``None`` on success.
+                On final failure, always returns the command string.
 
-    返回:
-        Optional[str]: 如果命令成功返回 None;如果重试次数耗尽仍失败,返回失败的命令字符串。
+    Returns:
+        - ``None`` on success (when ``switch=False``).
+        - stdout string on success (when ``switch=True``).
+        - The command string itself on final failure.
     """
     for attempt in range(max_retries):
         try:
@@ -28,9 +35,10 @@ def execute_command(
             return result.stdout.strip() if switch else None
 
         except subprocess.CalledProcessError as e:
-            print(f"❌命令执行失败 (尝试 {attempt + 1}/{max_retries}):{cmd}")
-            print(f"❌ 错误信息: {e.stderr.strip()}")
+            print(f"[!] Command failed (attempt {attempt + 1}/{max_retries}): {cmd}")
+            print(f"[!] stderr: {e.stderr.strip()}")
             traceback.print_exc()
             if attempt < max_retries - 1:
-                print("🔄 重试中...")
+                print("[*] Retrying...")
+
     return cmd

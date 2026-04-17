@@ -1,4 +1,4 @@
-"""文件读写工具（JSON / YAML / TXT / JSONL 等）"""
+"""File I/O utilities — JSON / YAML / TXT / JSONL."""
 
 import json
 import shutil
@@ -14,20 +14,20 @@ from .tool_types import PathLike
 
 
 def load_text_from(file_path: PathLike) -> str:
-    """一次性读取文件所有文本。"""
+    """Read entire file contents as a single string."""
     with open(file_path, "r", encoding="utf-8") as f:
         return f.read()
 
 
 def load_text_generator(file_path: PathLike):
-    """逐行读取文件（生成器），节省内存。"""
+    """Read a file line by line as a generator (memory-efficient for large files)."""
     with open(file_path, "r", encoding="utf-8") as f:
         for line in f:
             yield line.rstrip("\n")
 
 
 def read_txt_to_list(txt_path: PathLike) -> List[str]:
-    """读取 txt 文件，每行作为列表一个元素。"""
+    """Read a text file, returning one stripped line per list element."""
     return [line.strip() for line in load_text_generator(txt_path)]
 
 
@@ -37,13 +37,13 @@ def write_list_to_txt(
     mode: str = "w",
     line_separator: str = "\n",
 ) -> None:
-    """将列表内容写入文本文件。
+    """Write a list of items to a text file, one item per line.
 
     Args:
-        file_path: 文件路径。
-        data_list: 要写入的列表。
-        mode: 'w' 覆盖，'a' 追加。
-        line_separator: 行分隔符。
+        file_path: Destination file path.
+        data_list: List of items to write.
+        mode: ``'w'`` to overwrite, ``'a'`` to append.
+        line_separator: String appended after each item (default ``'\\n'``).
     """
     if not isinstance(data_list, list):
         raise TypeError("data_list must be a list")
@@ -58,7 +58,14 @@ def append_to_file(
     encoding: str = "utf-8",
     add_newline: bool = True,
 ) -> None:
-    """追加内容到文件末尾，文件不存在则自动创建。"""
+    """Append ``content`` to the end of a file. Creates the file if it does not exist.
+
+    Args:
+        file_path: Target file path.
+        content: String content to append.
+        encoding: File encoding (default ``utf-8``).
+        add_newline: Whether to append a trailing newline (default ``True``).
+    """
     if add_newline:
         content += "\n"
     with open(file_path, "a", encoding=encoding) as f:
@@ -69,13 +76,13 @@ def append_to_file(
 
 
 def load_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:
-    """从文件加载 JSON 数据（自动识别 list 或 dict）。"""
+    """Load JSON from file; returns a dict or list depending on content."""
     with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_object_json_from(file_path: PathLike) -> Dict:
-    """从文件加载 JSON 并确保返回 dict 类型。"""
+    """Load JSON from file, asserting that the root is a dict."""
     data = load_json_from(file_path)
     if isinstance(data, dict):
         return data
@@ -83,7 +90,7 @@ def load_object_json_from(file_path: PathLike) -> Dict:
 
 
 def load_list_json_from(file_path: PathLike) -> List[Dict]:
-    """从文件加载 JSON 并确保返回 list 类型。"""
+    """Load JSON from file, asserting that the root is a list."""
     data = load_json_from(file_path)
     if isinstance(data, list):
         return data
@@ -98,14 +105,14 @@ def save_json_to(
     indent: int = 4,
     ensure_ascii: bool = False,
 ) -> None:
-    """将 JSON 数据保存到文件。
+    """Save a JSON-serializable object to a file.
 
     Args:
-        json_object: 要保存的数据。
-        folder_path: 目标文件夹。
-        file_name: 文件名。
-        indent: 缩进空格数，默认 4。
-        ensure_ascii: 是否转义非 ASCII 字符。
+        json_object: Python object to serialize.
+        folder_path: Destination directory (created if missing).
+        file_name: Output file name.
+        indent: Spaces per indentation level (default 4).
+        ensure_ascii: Escape non-ASCII characters (default ``False``).
     """
     folder_path = Path(folder_path)
     folder_path.mkdir(parents=True, exist_ok=True)
@@ -115,13 +122,13 @@ def save_json_to(
 
 
 def read_jsonl(file_path: PathLike) -> List[Dict]:
-    """读取 JSONL（JSON Lines）文件，返回 JSON 对象列表。"""
+    """Read a JSONL (JSON Lines) file, returning a list of JSON objects."""
     with open(file_path, "r", encoding="utf-8") as f:
         return [json.loads(line.strip()) for line in f if line.strip()]
 
 
 def json_list_to_jsonl(json_list: List[Dict], jsonl_path: PathLike) -> None:
-    """将 JSON 对象列表写入 JSONL 文件。"""
+    """Write a list of JSON objects to a JSONL file (one object per line)."""
     with open(jsonl_path, "w", encoding="utf-8") as f:
         for obj in json_list:
             json.dump(obj, f)
@@ -132,12 +139,12 @@ def json_list_to_jsonl(json_list: List[Dict], jsonl_path: PathLike) -> None:
 
 
 def load_yaml_from(file_path: PathLike) -> Dict:
-    """读取 YAML 文件并返回字典。"""
+    """Load a YAML file and return its contents as a dict."""
     with open(file_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
 
 
-# ─────────────── 文件 / 文件夹操作 ───────────────
+# ─────────────── File / Folder Operations ───────────────
 
 
 def copy_file_to_folder(
@@ -145,7 +152,13 @@ def copy_file_to_folder(
     folder_path: PathLike,
     target_name: Optional[str] = None,
 ) -> None:
-    """复制文件到目标文件夹，文件夹不存在则创建。"""
+    """Copy a file into a destination folder, creating the folder if needed.
+
+    Args:
+        file_path: Source file path.
+        folder_path: Destination folder.
+        target_name: Optional rename on copy.
+    """
     file_path = Path(file_path)
     folder_path = Path(folder_path)
     if file_path.is_dir():

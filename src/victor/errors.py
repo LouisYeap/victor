@@ -1,0 +1,63 @@
+"""Custom exceptions for Victor."""
+
+from __future__ import annotations
+
+from enum import Enum
+
+
+class ErrorCode(Enum):
+    """Victor error codes for programmatic error handling."""
+
+    FILE_NOT_FOUND = "VICTOR_FILE_NOT_FOUND"
+    INVALID_JSON = "VICTOR_INVALID_JSON"
+    INVALID_YAML = "VICTOR_INVALID_YAML"
+    INVALID_TYPE = "VICTOR_INVALID_TYPE"
+    COMMAND_FAILED = "VICTOR_COMMAND_FAILED"
+    PARALLEL_EXECUTION_ERROR = "VICTOR_PARALLEL_EXECUTION_ERROR"
+
+
+class VictorError(Exception):
+    """Base exception for all Victor errors."""
+
+    pass
+
+
+class FileNotFoundError(VictorError):
+    """Raised when a required file does not exist."""
+
+    pass
+
+
+class InvalidJSONError(VictorError):
+    """Raised when JSON decoding fails."""
+
+    pass
+
+
+class InvalidYAMLError(VictorError):
+    """Raised when YAML parsing fails."""
+
+    pass
+
+
+class InvalidTypeError(VictorError):
+    """Raised when a value has an unexpected type."""
+
+    pass
+
+
+class CommandFailedError(VictorError):
+    """Raised when a shell command returns a non-zero exit code."""
+
+    def __init__(self, cmd: str, message: str = "") -> None:
+        self.cmd = cmd
+        self.message = message
+        super().__init__(f"Command failed: {cmd}" + (f" — {message}" if message else ""))
+
+
+class ParallelExecutionError(VictorError):
+    """Raised when parallel task execution encounters failures."""
+
+    def __init__(self, errors: list[str]) -> None:
+        self.errors = errors
+        super().__init__(f"{len(errors)} task(s) failed during parallel execution")

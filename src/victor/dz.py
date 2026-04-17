@@ -1,4 +1,14 @@
-"""Date-range splitting, OBS URL parsing, and other domain utilities."""
+"""Date-range splitting, OBS URL parsing, and other domain utilities.
+
+Example:
+    >>> from victor.dz import split_list, get_obs_base_url
+    >>> split_list([1, 2, 3, 4, 5, 6, 7], 3)
+    [[1, 2, 3], [4, 5, 6], [7]]
+    >>> get_obs_base_url("obs://my-bucket/path/to/file")
+    'obs://my-bucket/'
+"""
+
+from __future__ import annotations
 
 import math
 import os
@@ -6,6 +16,13 @@ from datetime import datetime, timedelta
 from itertools import islice
 from typing import List, Tuple
 from urllib.parse import urlparse
+
+__all__ = (
+    "get_obs_base_url",
+    "split_txt_file",
+    "split_datetime",
+    "split_list",
+)
 
 
 def get_obs_base_url(obs_url: str) -> str:
@@ -53,7 +70,9 @@ def split_txt_file(txt_path: str, split_count: int) -> None:
 
 
 def split_datetime(
-    start_date: str, end_date: str, parallelism: int
+    start_date: str,
+    end_date: str,
+    parallelism: int,
 ) -> List[List[Tuple[str, str]]]:
     """Split a date range into ``parallelism`` roughly equal periods.
 

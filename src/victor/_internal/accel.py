@@ -1,6 +1,14 @@
-"""Parallel task execution utilities (thread pool / process pool)."""
+"""Internal parallel execution utilities.
+
+This module is private. Use the public wrappers in ``victor.command`` instead.
+"""
+
+from __future__ import annotations
 
 import os
+import platform
+import shutil
+import subprocess
 import time
 import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed, Future
@@ -9,6 +17,9 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, TypeVar, Union, Tuple
 
 import tqdm
+
+from victor._internal.typing import MISSING
+from victor.types import PathLike
 
 T = TypeVar("T")
 
@@ -21,26 +32,16 @@ def thread_pool_executor(
 ) -> Dict[str, List[Any]]:
     """General-purpose multi-threaded task executor with tqdm progress bar.
 
-    Args:
-        func: Function to execute. Accepts one or more arguments per task.
-        tasks: List of tasks; each can be a single value or a tuple/list (multi-arg).
-        pool_size: Thread pool size, defaults to 60.
-        desc: Progress bar description text.
-
-    Returns:
-        A dict ``{'results': [], 'errors': []}``.
-
-    Example:
-        >>> def square(x): return x * x
-        >>> thread_pool_executor(square, [1, 2, 3, 4, 5])['results']
-        [1, 4, 9, 16, 25]
+    See :func:`victor.accelerate.thread_pool_executor`.
     """
     results, error_msgs = [], []
 
     with tqdm.tqdm(total=len(tasks), desc=desc, leave=True) as pbar:
         with ThreadPoolExecutor(max_workers=pool_size) as executor:
             future_tasks: List[Future[Any]] = [
-                executor.submit(func, *task if isinstance(task, (tuple, list)) else (task,))
+                executor.submit(
+                    func, *task if isinstance(task, (tuple, list)) else (task,)
+                )
                 for task in tasks
             ]
             for future in as_completed(future_tasks):
@@ -60,24 +61,12 @@ def thread_pool_executor(
 def process_pool_executor(
     func: Callable[..., Any],
     tasks: List[Union[Any, Tuple[Any, ...]]],
-    pool_size: int = None,
+    pool_size: int | None = None,
     desc: str = "Processing...",
 ) -> Dict[str, List[Any]]:
-    """Parallel task execution using ``multiprocessing.Pool`` with tqdm progress bar.
+    """Parallel task execution using ``multiprocessing.Pool`` with tqdm.
 
-    Args:
-        func: Function to execute in parallel.
-        tasks: List of tasks; each can be a single value or a tuple/list (multi-arg).
-        pool_size: Process pool size, defaults to CPU core count.
-        desc: Progress bar description text.
-
-    Returns:
-        A dict ``{'results': [], 'errors': []}``.
-
-    Example:
-        >>> def square(x): return x * x
-        >>> process_pool_executor(square, [1, 2, 3, 4, 5])['results']
-        [1, 4, 9, 16, 25]
+    See :func:`victor.accelerate.process_pool_executor`.
     """
     if pool_size is None:
         pool_size = os.cpu_count() or 8
@@ -104,20 +93,10 @@ def process_pool_executor(
     return {"results": results, "errors": error_msgs}
 
 
-# ─────────────── Path / Folder Utilities ───────────────
-# (Kept here for backward compatibility; migration to file_utils planned.)
-
-import platform
-import shutil
-import subprocess
-from .tool_types import PathLike
-
-
-def install_all_requirements(root_dir: PathLike = "."):
+def install_all_requirements(root_dir: PathLike = ".") -> None:
     """Recursively install all ``requirements.txt`` files under a directory.
 
-    Args:
-        root_dir: Root directory to search.
+    See :func:`victor.accelerate.install_all_requirements`.
     """
     req_files = []
     for dirpath, _, filenames in os.walk(root_dir):
@@ -200,11 +179,13 @@ def break_list(lst: List[T], n: int) -> List[List[T]]:
 
 def timing_decorator(func: Callable[..., T]) -> Callable[..., T]:
     """Decorator that prints ``func``'s execution time to stdout."""
+
     def wrapper(*args, **kwargs) -> T:
         start = time.time()
         result = func(*args, **kwargs)
         print(f"[{func.__name__}] executed in {time.time() - start:.4f}s")
         return result
+
     return wrapper
 
 

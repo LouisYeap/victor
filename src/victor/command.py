@@ -1,12 +1,24 @@
-"""Shell command execution utilities."""
+"""Shell command execution utilities.
+
+Example:
+    >>> from victor.command import execute_command
+    >>> execute_command("echo hello", switch=True)
+    'hello'
+"""
+
+from __future__ import annotations
 
 import subprocess
 import traceback
 from typing import Optional
 
+__all__ = ("execute_command",)
+
 
 def execute_command(
-    cmd: str, max_retries: int = 1, switch: bool = False
+    cmd: str,
+    max_retries: int = 1,
+    switch: bool = False,
 ) -> Optional[str]:
     """Execute a shell command with optional retry.
 

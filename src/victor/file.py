@@ -1,13 +1,41 @@
-"""File I/O utilities — JSON / YAML / TXT / JSONL."""
+"""File I/O utilities — JSON / YAML / TXT / JSONL.
+
+Example:
+    >>> from victor.file import save_json_to, load_json_from
+    >>> save_json_to({"name": "victor"}, "./data", "config.json", indent=2)
+    >>> config = load_json_from("./data/config.json")
+"""
+
+from __future__ import annotations
 
 import json
 import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Union
 
 import yaml
 
-from .tool_types import PathLike
+from victor.types import PathLike
+
+__all__ = (
+    # text
+    "load_text_from",
+    "read_txt_to_list",
+    "load_text_generator",
+    "write_list_to_txt",
+    "append_to_file",
+    # JSON
+    "load_json_from",
+    "load_object_json_from",
+    "load_list_json_from",
+    "save_json_to",
+    "read_jsonl",
+    "json_list_to_jsonl",
+    # YAML
+    "load_yaml_from",
+    # file operations
+    "copy_file_to_folder",
+)
 
 
 # ─────────────── TXT ───────────────
@@ -144,13 +172,13 @@ def load_yaml_from(file_path: PathLike) -> Dict:
         return yaml.safe_load(f) or {}
 
 
-# ─────────────── File / Folder Operations ───────────────
+# ─────────────── File Operations ───────────────
 
 
 def copy_file_to_folder(
     file_path: PathLike,
     folder_path: PathLike,
-    target_name: Optional[str] = None,
+    target_name: str | None = None,
 ) -> None:
     """Copy a file into a destination folder, creating the folder if needed.
 

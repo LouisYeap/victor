@@ -4,6 +4,10 @@
 
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Release](https://github.com/LouisYeap/victor/actions/workflows/release.yml/badge.svg)](https://github.com/LouisYeap/victor/actions/workflows/release.yml)
+[![Tests](https://github.com/LouisYeap/victor/actions/workflows/test.yml/badge.svg)](https://github.com/LouisYeap/victor/actions/workflows/test.yml)
+
+---
 
 ---
 
@@ -176,6 +180,18 @@ python -m pytest tests/ -v
 ```
 
 **35 test cases, all passing.** ✅
+
+---
+
+## 📥 Downloads
+
+Pre-built wheels for Windows, macOS, and Linux are available in the [Releases](https://github.com/LouisYeap/victor/releases).
+
+| Platform | File |
+|----------|------|
+| Windows | `victor_utils-*-win_amd64.whl` |
+| macOS (Intel) | `victor_utils-*-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl` |
+| Linux | `victor_utils-*-manylinux_*_x86_64.whl` |
 
 ---
 

@@ -1,0 +1,135 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: manylinux
+            python-version: '3.9'
+          - os: ubuntu-latest
+            platform: musllinux
+            python-version: '3.11'
+          - os: windows-latest
+            platform: win
+            python-version: '3.9'
+          - os: macos-latest
+            platform: macos
+            python-version: '3.9'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+
+      - name: Build package
+        run: |
+          pip install -e ".[dev]"
+          python -m pip install build --quiet
+          python -m build
+
+      - name: Build wheels
+        run: |
+          python -m build --wheel --outdir dist/
+
+      - name: Build sdist
+        run: |
+          python -m build --sdist --outdir dist/
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.platform }}-py${{ matrix.python-version }}
+          path: dist/
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/
+
+      - name: Flatten artifacts
+        run: |
+          mkdir -p release
+          cp -r dist/*/*/* release/ 2>/dev/null || cp -r dist/*/* release/ 2>/dev/null || cp -r dist/*/ release/ 2>/dev/null || true
+          ls -la release/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release-latest:
+    name: Update Latest Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/
+
+      - name: Flatten artifacts
+        run: |
+          mkdir -p release
+          for dir in dist/*/; do
+            cp -r "$dir"/* release/ 2>/dev/null || true
+          done
+          ls -la release/
+
+      - name: Delete Existing Latest Release
+        run: |
+          gh release delete latest --yes || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Latest Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*
+          tag: latest
+          release_name: "Latest (${{ github.sha }})"
+          generate_release_notes: true
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

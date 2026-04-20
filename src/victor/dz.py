@@ -14,6 +14,7 @@ import math
 import os
 from datetime import datetime, timedelta
 from itertools import islice
+from typing import List, Tuple, TypeVar
 from urllib.parse import urlparse
 
 __all__ = (
@@ -22,6 +23,8 @@ __all__ = (
     "split_datetime",
     "split_list",
 )
+
+T = TypeVar("T")
 
 
 def get_obs_base_url(obs_url: str) -> str:
@@ -72,7 +75,7 @@ def split_datetime(
     start_date: str,
     end_date: str,
     parallelism: int,
-) -> list[list[tuple[str, str]]]:
+) -> List[List[Tuple[str, str]]]:
     """Split a date range into ``parallelism`` roughly equal periods.
 
     Each period is returned as a list of ``(start, end)`` date-str tuples.
@@ -98,12 +101,12 @@ def split_datetime(
     chunk_size = total_days // parallelism
     remainder = total_days % parallelism
 
-    date_splits: list[list[tuple[str, str]]] = []
+    date_splits: List[List[Tuple[str, str]]] = []
     current_date = start_dt
 
     for i in range(parallelism):
         days_in_chunk = chunk_size + (1 if i < remainder else 0)
-        sub_list: list[tuple[str, str]] = []
+        sub_list: List[Tuple[str, str]] = []
 
         for _ in range(days_in_chunk):
             next_date = current_date + timedelta(days=1)
@@ -117,7 +120,7 @@ def split_datetime(
     return date_splits
 
 
-def split_list(lst: list, n: int) -> list[list]:
+def split_list(lst: List[T], n: int) -> List[List[T]]:
     """Split list ``lst`` into ``n`` roughly equal parts.
 
     Args:

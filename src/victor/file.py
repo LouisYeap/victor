@@ -11,6 +11,8 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
+from typing import Any, Dict, List, Union
+
 import yaml
 
 from victor.types import PathLike
@@ -59,7 +61,7 @@ def read_txt_to_list(txt_path: PathLike) -> list[str]:
 
 def write_list_to_txt(
     file_path: PathLike,
-    data_list: list[Any],
+    data_list: List[Any],
     mode: str = "w",
     line_separator: str = "\n",
 ) -> None:
@@ -101,7 +103,7 @@ def append_to_file(
 # ─────────────── JSON ───────────────
 
 
-def load_json_from(file_path: PathLike) -> Union[list[Any], dict[str, Any]]:
+def load_json_from(file_path: PathLike) -> Union[List[Any], Dict[str, Any]]:
     """Load JSON from file; returns a dict or list depending on content.
 
     Raises:
@@ -118,7 +120,7 @@ def load_json_from(file_path: PathLike) -> Union[list[Any], dict[str, Any]]:
         raise
 
 
-def load_object_json_from(file_path: PathLike) -> Dict:
+def load_object_json_from(file_path: PathLike) -> Dict[str, Any]:
     """Load JSON from file, asserting that the root is a dict."""
     data = load_json_from(file_path)
     if isinstance(data, dict):
@@ -126,7 +128,7 @@ def load_object_json_from(file_path: PathLike) -> Dict:
     raise ValueError(f"JSON at {file_path} is not a dict")
 
 
-def load_list_json_from(file_path: PathLike) -> List[Dict]:
+def load_list_json_from(file_path: PathLike) -> List[Dict[str, Any]]:
     """Load JSON from file, asserting that the root is a list."""
     data = load_json_from(file_path)
     if isinstance(data, list):
@@ -158,13 +160,13 @@ def save_json_to(
         json.dump(json_object, f, ensure_ascii=ensure_ascii, indent=indent)
 
 
-def read_jsonl(file_path: PathLike) -> list[dict[str, Any]]:
+def read_jsonl(file_path: PathLike) -> List[Dict[str, Any]]:
     """Read a JSONL (JSON Lines) file, returning a list of JSON objects."""
     with open(file_path, "r", encoding="utf-8") as f:
         return [json.loads(line.strip()) for line in f if line.strip()]
 
 
-def json_list_to_jsonl(json_list: list[dict[str, Any]], jsonl_path: PathLike) -> None:
+def json_list_to_jsonl(json_list: List[Dict[str, Any]], jsonl_path: PathLike) -> None:
     """Write a list of JSON objects to a JSONL file (one object per line)."""
     with open(jsonl_path, "w", encoding="utf-8") as f:
         for obj in json_list:
@@ -175,7 +177,7 @@ def json_list_to_jsonl(json_list: list[dict[str, Any]], jsonl_path: PathLike) ->
 # ─────────────── YAML ───────────────
 
 
-def load_yaml_from(file_path: PathLike) -> Dict:
+def load_yaml_from(file_path: PathLike) -> Dict[str, Any]:
     """Load a YAML file and return its contents as a dict."""
     with open(file_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f) or {}

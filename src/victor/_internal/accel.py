@@ -14,12 +14,14 @@ import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed, Future
 from multiprocessing import Pool
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Dict, List, Tuple, TypeVar
 
 import tqdm
 
 from victor._internal.typing import MISSING
 from victor.types import PathLike
+
+T = TypeVar("T")
 
 
 def thread_pool_executor(
@@ -29,7 +31,7 @@ def thread_pool_executor(
     pool_size: int = 60,
     desc: str = "Processing...",
     timeout: float | None = None,
-) -> dict[str, list[Any]]:
+) -> dict[str, List[Any]]:
     """General-purpose multi-threaded task executor with tqdm progress bar.
 
     Args:
@@ -42,12 +44,12 @@ def thread_pool_executor(
     Returns:
         dict with ``results`` (list of return values) and ``errors`` (list of error messages).
     """
-    results: list[Any] = []
-    error_msgs: list[str] = []
+    results: List[Any] = []
+    error_msgs: List[str] = []
 
     with tqdm.tqdm(total=len(tasks), desc=desc, leave=True) as pbar:
         with ThreadPoolExecutor(max_workers=pool_size) as executor:
-            future_tasks: list[Future[Any]] = [
+            future_tasks: List[Future[Any]] = [
                 executor.submit(
                     func, *task if isinstance(task, (tuple, list)) else (task,)
                 )
@@ -74,7 +76,7 @@ def process_pool_executor(
     pool_size: int | None = None,
     desc: str = "Processing...",
     timeout: float | None = None,
-) -> dict[str, list[Any]]:
+) -> dict[str, List[Any]]:
     """Parallel task execution using ``multiprocessing.Pool`` with tqdm.
 
     Args:
@@ -90,8 +92,8 @@ def process_pool_executor(
     if pool_size is None:
         pool_size = os.cpu_count() or 8
 
-    results: list[Any] = []
-    error_msgs: list[str] = []
+    results: List[Any] = []
+    error_msgs: List[str] = []
 
     with Pool(processes=pool_size) as pool:
         async_results = [
@@ -164,32 +166,32 @@ def clean_file(output_file: PathLike) -> None:
         p.unlink()
 
 
-def search(directory: PathLike, pattern: str) -> list[Path]:
+def search(directory: PathLike, pattern: str) -> List[Path]:
     """Search for files matching ``pattern`` in ``directory`` (non-recursive)."""
     return list(Path(directory).glob(pattern))
 
 
-def rsearch(directory: PathLike, pattern: str) -> list[Path]:
+def rsearch(directory: PathLike, pattern: str) -> List[Path]:
     """Recursively search for files matching ``pattern`` under ``directory``."""
     return list(Path(directory).rglob(pattern))
 
 
-def list_folders_of_path(folder_path: PathLike) -> list[Path]:
+def list_folders_of_path(folder_path: PathLike) -> List[Path]:
     """Return all subfolders under ``folder_path``."""
     return [f for f in Path(folder_path).iterdir() if f.is_dir()]
 
 
-def list_files_of_path(folder_path: PathLike) -> list[Path]:
+def list_files_of_path(folder_path: PathLike) -> List[Path]:
     """Return all files under ``folder_path``."""
     return [f for f in Path(folder_path).iterdir() if f.is_file()]
 
 
-def rlist_jsons_of_path(folder_path: PathLike) -> list[Path]:
+def rlist_jsons_of_path(folder_path: PathLike) -> List[Path]:
     """Recursively find all JSON files under ``folder_path``."""
     return list(Path(folder_path).rglob("*.json"))
 
 
-def break_list(lst: list[T], n: int) -> list[list[T]]:
+def break_list(lst: List[T], n: int) -> List[List[T]]:
     """Split ``lst`` into chunks of at most ``n`` elements each."""
     return [lst[i : i + n] for i in range(0, len(lst), n)]
 
@@ -206,11 +208,11 @@ def timing_decorator(func: Callable[..., T]) -> Callable[..., T]:
     return wrapper
 
 
-def fuzzy_get_value(data: dict, key_part: str) -> list[Any]:
+def fuzzy_get_value(data: Dict[str, Any], key_part: str) -> List[Any]:
     """Return all values whose keys contain ``key_part``."""
     return [v for k, v in data.items() if key_part in k]
 
 
-def fuzzy_get_keys(data: dict, key_part: str) -> list[str]:
+def fuzzy_get_keys(data: Dict[str, Any], key_part: str) -> List[str]:
     """Return all keys that contain ``key_part``."""
     return [k for k in data if key_part in k]

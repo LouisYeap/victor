@@ -58,6 +58,6 @@ class CommandFailedError(VictorError):
 class ParallelExecutionError(VictorError):
     """Raised when parallel task execution encounters failures."""
 
-    def __init__(self, errors: list[str]) -> None:
+    def __init__(self, errors: List[str]) -> None:
         self.errors = errors
         super().__init__(f"{len(errors)} task(s) failed during parallel execution")

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from enum import Enum
+from typing import List, Optional
 
 
 class ErrorCode(Enum):
@@ -43,7 +44,17 @@ class InvalidYAMLError(VictorError):
 class InvalidTypeError(VictorError):
     """Raised when a value has an unexpected type."""
 
-    pass
+    def __init__(
+        self,
+        message: str,
+        *,
+        expected_type: Optional[str] = None,
+        received_type: Optional[str] = None,
+    ) -> None:
+        self.expected_type = expected_type
+        self.received_type = received_type
+        detail = f" (expected {expected_type}, got {received_type})" if (expected_type and received_type) else ""
+        super().__init__(message + detail)
 
 
 class CommandFailedError(VictorError):

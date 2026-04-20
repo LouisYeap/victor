@@ -11,10 +11,11 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, Generator, List, Union
 
 import yaml
 
+from victor.errors import InvalidTypeError
 from victor.types import PathLike
 
 __all__ = (
@@ -47,14 +48,14 @@ def load_text_from(file_path: PathLike) -> str:
         return f.read()
 
 
-def load_text_generator(file_path: PathLike):
+def load_text_generator(file_path: PathLike) -> Generator[str, None, None]:
     """Read a file line by line as a generator (memory-efficient for large files)."""
     with open(file_path, "r", encoding="utf-8") as f:
         for line in f:
             yield line.rstrip()
 
 
-def read_txt_to_list(txt_path: PathLike) -> list[str]:
+def read_txt_to_list(txt_path: PathLike) -> List[str]:
     """Read a text file, returning one stripped line per list element."""
     return list(load_text_generator(txt_path))
 
@@ -115,6 +116,7 @@ def load_json_from(file_path: PathLike) -> Union[List[Any], Dict[str, Any]]:
             return json.load(f)
     except json.JSONDecodeError as e:
         from victor.errors import InvalidJSONError
+
         raise InvalidJSONError(f"Invalid JSON in {file_path}: {e}") from e
     except FileNotFoundError:
         raise
@@ -125,7 +127,11 @@ def load_object_json_from(file_path: PathLike) -> Dict[str, Any]:
     data = load_json_from(file_path)
     if isinstance(data, dict):
         return data
-    raise ValueError(f"JSON at {file_path} is not a dict")
+    raise InvalidTypeError(
+        f"JSON at {file_path} is not a dict",
+        expected_type="dict",
+        received_type=type(data).__name__,
+    )
 
 
 def load_list_json_from(file_path: PathLike) -> List[Dict[str, Any]]:
@@ -133,7 +139,11 @@ def load_list_json_from(file_path: PathLike) -> List[Dict[str, Any]]:
     data = load_json_from(file_path)
     if isinstance(data, list):
         return data
-    raise ValueError(f"JSON at {file_path} is not a list")
+    raise InvalidTypeError(
+        f"JSON at {file_path} is not a list",
+        expected_type="list",
+        received_type=type(data).__name__,
+    )
 
 
 def save_json_to(

@@ -47,11 +47,13 @@ def test_load_object_json_from_valid(tmp_path):
 
 def test_load_object_json_from_invalid(tmp_path):
     from victor import load_object_json_from
+    from victor.errors import InvalidTypeError
 
     path = tmp_path / "list.json"
     path.write_text("[1, 2, 3]", encoding="utf-8")
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidTypeError) as exc_info:
         load_object_json_from(path)
+    assert exc_info.value.received_type == "list"
 
 
 def test_load_list_json_from_valid(tmp_path):
@@ -63,11 +65,13 @@ def test_load_list_json_from_valid(tmp_path):
 
 def test_load_list_json_from_invalid(tmp_path):
     from victor import load_list_json_from
+    from victor.errors import InvalidTypeError
 
     path = tmp_path / "dict.json"
     path.write_text('{"key": "value"}', encoding="utf-8")
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidTypeError) as exc_info:
         load_list_json_from(path)
+    assert exc_info.value.received_type == "dict"
 
 
 def test_read_write_txt(tmp_path):

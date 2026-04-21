@@ -11,7 +11,7 @@ Example:
 
 from __future__ import annotations
 
-from victor.accel import (
+from victor._internal.accel import (
     break_list,
     clean_file,
     clean_folder,

@@ -11,8 +11,6 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Union
-
 import yaml
 
 from victor.types import PathLike
@@ -51,17 +49,17 @@ def load_text_generator(file_path: PathLike):
     """Read a file line by line as a generator (memory-efficient for large files)."""
     with open(file_path, "r", encoding="utf-8") as f:
         for line in f:
-            yield line.rstrip("\n")
+            yield line.rstrip()
 
 
-def read_txt_to_list(txt_path: PathLike) -> List[str]:
+def read_txt_to_list(txt_path: PathLike) -> list[str]:
     """Read a text file, returning one stripped line per list element."""
-    return [line.strip() for line in load_text_generator(txt_path)]
+    return list(load_text_generator(txt_path))
 
 
 def write_list_to_txt(
     file_path: PathLike,
-    data_list: List[Any],
+    data_list: list[Any],
     mode: str = "w",
     line_separator: str = "\n",
 ) -> None:
@@ -103,10 +101,21 @@ def append_to_file(
 # ─────────────── JSON ───────────────
 
 
-def load_json_from(file_path: PathLike) -> Union[List[Dict], Dict]:
-    """Load JSON from file; returns a dict or list depending on content."""
-    with open(file_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+def load_json_from(file_path: PathLike) -> Union[list[Any], dict[str, Any]]:
+    """Load JSON from file; returns a dict or list depending on content.
+
+    Raises:
+        FileNotFoundError: If the file does not exist.
+        InvalidJSONError: If the file content is not valid JSON.
+    """
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        from victor.errors import InvalidJSONError
+        raise InvalidJSONError(f"Invalid JSON in {file_path}: {e}") from e
+    except FileNotFoundError:
+        raise
 
 
 def load_object_json_from(file_path: PathLike) -> Dict:
@@ -126,7 +135,7 @@ def load_list_json_from(file_path: PathLike) -> List[Dict]:
 
 
 def save_json_to(
-    json_object: Union[Dict, List],
+    json_object: Any,
     folder_path: PathLike,
     file_name: str,
     *,
@@ -149,13 +158,13 @@ def save_json_to(
         json.dump(json_object, f, ensure_ascii=ensure_ascii, indent=indent)
 
 
-def read_jsonl(file_path: PathLike) -> List[Dict]:
+def read_jsonl(file_path: PathLike) -> list[dict[str, Any]]:
     """Read a JSONL (JSON Lines) file, returning a list of JSON objects."""
     with open(file_path, "r", encoding="utf-8") as f:
         return [json.loads(line.strip()) for line in f if line.strip()]
 
 
-def json_list_to_jsonl(json_list: List[Dict], jsonl_path: PathLike) -> None:
+def json_list_to_jsonl(json_list: list[dict[str, Any]], jsonl_path: PathLike) -> None:
     """Write a list of JSON objects to a JSONL file (one object per line)."""
     with open(jsonl_path, "w", encoding="utf-8") as f:
         for obj in json_list:

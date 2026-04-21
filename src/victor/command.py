@@ -17,10 +17,12 @@ __all__ = ("execute_command",)
 
 def execute_command(
     cmd: str,
+    *,
     max_retries: int = 1,
     switch: bool = False,
+    timeout: float | None = None,
 ) -> Union[str, None]:
-    """Execute a shell command with optional retry.
+    """Execute a shell command with optional retry and timeout.
 
     Args:
         cmd: The shell command to execute.
@@ -28,6 +30,7 @@ def execute_command(
         switch: If ``True``, return stdout as string on success;
                 if ``False``, return ``None`` on success.
                 On final failure, always returns the command string.
+        timeout: Maximum time in seconds before killing the process (default None = no limit).
 
     Returns:
         - ``None`` on success (when ``switch=False``).
@@ -43,9 +46,13 @@ def execute_command(
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
                 check=True,
+                timeout=timeout,
             )
             return result.stdout.strip() if switch else None
 
+        except subprocess.TimeoutExpired as e:
+            print(f"[!] Command timed out after {timeout}s: {cmd}")
+            raise
         except subprocess.CalledProcessError as e:
             print(f"[!] Command failed (attempt {attempt + 1}/{max_retries}): {cmd}")
             print(f"[!] stderr: {e.stderr.strip()}")

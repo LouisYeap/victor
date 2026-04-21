@@ -49,10 +49,10 @@ class InvalidTypeError(VictorError):
 class CommandFailedError(VictorError):
     """Raised when a shell command returns a non-zero exit code."""
 
-    def __init__(self, cmd: str, message: str = "") -> None:
-        self.cmd = cmd
+    def __init__(self, message: str, cmd: str = "") -> None:
         self.message = message
-        super().__init__(f"Command failed: {cmd}" + (f" — {message}" if message else ""))
+        self.cmd = cmd
+        super().__init__(message + (f" (cmd: {cmd})" if cmd else ""))
 
 
 class ParallelExecutionError(VictorError):

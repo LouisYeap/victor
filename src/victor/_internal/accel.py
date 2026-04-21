@@ -1,6 +1,6 @@
 """Internal parallel execution utilities.
 
-This module is private. Use the public wrappers in ``victor.command`` instead.
+This module is private. Use the public wrappers in ``victor`` instead.
 """
 
 from __future__ import annotations
@@ -14,31 +14,40 @@ import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed, Future
 from multiprocessing import Pool
 from pathlib import Path
-from typing import Any, Callable, Dict, List, TypeVar, Union, Tuple
+from typing import Any, Callable
 
 import tqdm
 
 from victor._internal.typing import MISSING
 from victor.types import PathLike
 
-T = TypeVar("T")
-
 
 def thread_pool_executor(
     func: Callable[..., Any],
-    tasks: List[Union[Any, Tuple[Any, ...]]],
+    tasks: list,
+    *,
     pool_size: int = 60,
     desc: str = "Processing...",
-) -> Dict[str, List[Any]]:
+    timeout: float | None = None,
+) -> dict[str, list[Any]]:
     """General-purpose multi-threaded task executor with tqdm progress bar.
 
-    See :func:`victor.accelerate.thread_pool_executor`.
+    Args:
+        func: Callable to apply to each task.
+        tasks: List of tasks (single values or tuples passed as *args).
+        pool_size: Maximum concurrent threads (default 60).
+        desc: Progress bar description.
+        timeout: Per-task timeout in seconds (default None = no limit).
+
+    Returns:
+        dict with ``results`` (list of return values) and ``errors`` (list of error messages).
     """
-    results, error_msgs = [], []
+    results: list[Any] = []
+    error_msgs: list[str] = []
 
     with tqdm.tqdm(total=len(tasks), desc=desc, leave=True) as pbar:
         with ThreadPoolExecutor(max_workers=pool_size) as executor:
-            future_tasks: List[Future[Any]] = [
+            future_tasks: list[Future[Any]] = [
                 executor.submit(
                     func, *task if isinstance(task, (tuple, list)) else (task,)
                 )
@@ -46,7 +55,7 @@ def thread_pool_executor(
             ]
             for future in as_completed(future_tasks):
                 try:
-                    result = future.result()
+                    result = future.result(timeout=timeout)
                     if result is not None:
                         results.append(result)
                 except Exception as e:
@@ -60,18 +69,29 @@ def thread_pool_executor(
 
 def process_pool_executor(
     func: Callable[..., Any],
-    tasks: List[Union[Any, Tuple[Any, ...]]],
+    tasks: list,
+    *,
     pool_size: int | None = None,
     desc: str = "Processing...",
-) -> Dict[str, List[Any]]:
+    timeout: float | None = None,
+) -> dict[str, list[Any]]:
     """Parallel task execution using ``multiprocessing.Pool`` with tqdm.
 
-    See :func:`victor.accelerate.process_pool_executor`.
+    Args:
+        func: Callable to apply to each task.
+        tasks: List of tasks (single values or tuples passed as *args).
+        pool_size: Number of worker processes (default = CPU count).
+        desc: Progress bar description.
+        timeout: Per-task timeout in seconds (default None = no limit).
+
+    Returns:
+        dict with ``results`` (list of return values) and ``errors`` (list of error messages).
     """
     if pool_size is None:
         pool_size = os.cpu_count() or 8
 
-    results, error_msgs = [], []
+    results: list[Any] = []
+    error_msgs: list[str] = []
 
     with Pool(processes=pool_size) as pool:
         async_results = [
@@ -83,7 +103,7 @@ def process_pool_executor(
         with tqdm.tqdm(total=len(async_results), desc=desc, unit="task", leave=True) as pbar:
             for ar in async_results:
                 try:
-                    results.append(ar.get())
+                    results.append(ar.get(timeout=timeout))
                 except Exception as e:
                     error_msgs.append(
                         f"Task error: {type(e).__name__}: {e}\n{traceback.format_exc()}"
@@ -94,10 +114,7 @@ def process_pool_executor(
 
 
 def install_all_requirements(root_dir: PathLike = ".") -> None:
-    """Recursively install all ``requirements.txt`` files under a directory.
-
-    See :func:`victor.accelerate.install_all_requirements`.
-    """
+    """Recursively install all ``requirements.txt`` files under a directory."""
     req_files = []
     for dirpath, _, filenames in os.walk(root_dir):
         req_files.extend(
@@ -159,32 +176,32 @@ def clean_file(output_file: PathLike) -> bool:
     return False
 
 
-def search(directory: PathLike, pattern: str) -> List[Path]:
+def search(directory: PathLike, pattern: str) -> list[Path]:
     """Search for files matching ``pattern`` in ``directory`` (non-recursive)."""
     return list(Path(directory).glob(pattern))
 
 
-def rsearch(directory: PathLike, pattern: str) -> List[Path]:
+def rsearch(directory: PathLike, pattern: str) -> list[Path]:
     """Recursively search for files matching ``pattern`` under ``directory``."""
     return list(Path(directory).rglob(pattern))
 
 
-def list_folders_of_path(folder_path: PathLike) -> List[Path]:
+def list_folders_of_path(folder_path: PathLike) -> list[Path]:
     """Return all subfolders under ``folder_path``."""
     return [f for f in Path(folder_path).iterdir() if f.is_dir()]
 
 
-def list_files_of_path(folder_path: PathLike) -> List[Path]:
+def list_files_of_path(folder_path: PathLike) -> list[Path]:
     """Return all files under ``folder_path``."""
     return [f for f in Path(folder_path).iterdir() if f.is_file()]
 
 
-def rlist_jsons_of_path(folder_path: PathLike) -> List[Path]:
+def rlist_jsons_of_path(folder_path: PathLike) -> list[Path]:
     """Recursively find all JSON files under ``folder_path``."""
     return list(Path(folder_path).rglob("*.json"))
 
 
-def break_list(lst: List[T], n: int) -> List[List[T]]:
+def break_list(lst: list[T], n: int) -> list[list[T]]:
     """Split ``lst`` into chunks of at most ``n`` elements each."""
     return [lst[i : i + n] for i in range(0, len(lst), n)]
 
@@ -201,11 +218,11 @@ def timing_decorator(func: Callable[..., T]) -> Callable[..., T]:
     return wrapper
 
 
-def fuzzy_get_value(data: dict, key_part: str) -> List[Any]:
+def fuzzy_get_value(data: dict, key_part: str) -> list[Any]:
     """Return all values whose keys contain ``key_part``."""
     return [v for k, v in data.items() if key_part in k]
 
 
-def fuzzy_get_keys(data: dict, key_part: str) -> List[str]:
+def fuzzy_get_keys(data: dict, key_part: str) -> list[str]:
     """Return all keys that contain ``key_part``."""
     return [k for k in data if key_part in k]

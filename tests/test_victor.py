@@ -217,8 +217,10 @@ def test_clean_folder(tmp_path):
     sub = tmp_path / "cleanable"
     sub.mkdir()
     (sub / "file.txt").write_text("hello", encoding="utf-8")
-    clean_folder(sub)
+    assert clean_folder(sub) is True
     assert not sub.exists()
+    # Calling on non-existent folder should return False
+    assert clean_folder(sub) is False
 
 
 def test_clean_file(tmp_path):
@@ -226,8 +228,10 @@ def test_clean_file(tmp_path):
 
     f = tmp_path / "to_delete.txt"
     f.write_text("hello", encoding="utf-8")
-    clean_file(f)
+    assert clean_file(f) is True
     assert not f.exists()
+    # Calling on non-existent file should return False
+    assert clean_file(f) is False
 
 
 def test_search(tmp_path):

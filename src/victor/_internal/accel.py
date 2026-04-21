@@ -150,18 +150,30 @@ def clean_or_create_folder(folder_path: PathLike) -> None:
     folder_path.mkdir(parents=True, exist_ok=True)
 
 
-def clean_folder(folder_path: PathLike) -> None:
-    """Delete a folder and all its contents (if it exists)."""
+def clean_folder(folder_path: PathLike) -> bool:
+    """Delete a folder and all its contents (if it exists).
+
+    Returns:
+        True if the folder existed and was deleted, False otherwise.
+    """
     folder_path = Path(folder_path)
     if folder_path.exists():
         shutil.rmtree(folder_path)
+        return True
+    return False
 
 
-def clean_file(output_file: PathLike) -> None:
-    """Delete a file (if it exists)."""
+def clean_file(output_file: PathLike) -> bool:
+    """Delete a file (if it exists).
+
+    Returns:
+        True if the file existed and was deleted, False otherwise.
+    """
     p = Path(output_file)
     if p.exists():
         p.unlink()
+        return True
+    return False
 
 
 def search(directory: PathLike, pattern: str) -> list[Path]:

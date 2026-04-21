@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import subprocess
 import traceback
-from typing import Optional
+from typing import Union
 
 __all__ = ("execute_command",)
 
@@ -19,7 +19,7 @@ def execute_command(
     cmd: str,
     max_retries: int = 1,
     switch: bool = False,
-) -> Optional[str]:
+) -> Union[str, None]:
     """Execute a shell command with optional retry.
 
     Args:
